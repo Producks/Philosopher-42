@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 17:09:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/04 04:07:09 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/04 00:43:47 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/04 04:06:54 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef INIT_H
+# define INIT_H
 
 # include "struct.h"
 
-# define SUCCESS  0
-# define ARGC_ERROR 1
-# define ARGV_ERROR 2
+# define MAX_PHILO 200
+# define MIN_PHILO 2
 
-void	print_error(const char *str);
-int		check_atoi_error(t_philo *philo);
+int	init_params(int argc, char **argv, t_philo *philo);
 
 #endif

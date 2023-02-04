@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 20:37:55 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/02 20:39:52 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/04 04:05:06 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#ifndef UTILS_H
+# define UTILS_H
 
-#include <pthread.h>
-
-typedef struct param_s
-{
-	pthread_mutex_t	mutex;
-}	param;
+int	parsing_argv_error(const char *str);
+int	ft_atoi(const char *str);
 
 #endif
