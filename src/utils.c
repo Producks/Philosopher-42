@@ -6,43 +6,12 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/04 04:04:05 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/05 23:12:55 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <unistd.h>
 #include <limits.h>
-#include "../include/error.h"
-
-int	parsing_argv_error(const char *str)
-{
-	int	index;
-
-	index = 0;
-	if (!str[index])
-	{
-		print_error("Error: argument is empty");
-		return (false);
-	}
-	if (str[index] == '-')
-	{
-		print_error("Error: integer is negative");
-		return (false);
-	}
-	if (str[index] == '+')
-		index++;
-	while (str[index])
-	{
-		if (str[index] < 48 || str[index] > 57)
-		{
-			print_error("Error: argument is not digit");
-			return (false);
-		}
-		index++;
-	}
-	return (true);
-}
+#include <sys/time.h>
 
 int	ft_atoi(const char *str)
 {
@@ -59,4 +28,12 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)result);
+}
+
+unsigned long int	ft_get_time(void)
+{
+	struct timeval	ms;
+
+	gettimeofday(&ms, 0);
+	return (ms.tv_sec * 1000 + ms.tv_usec / 1000);
 }

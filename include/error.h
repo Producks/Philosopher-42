@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:09:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/04 04:07:09 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/05 23:15:09 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # define ARGC_ERROR 1
 # define ARGV_ERROR 2
 
-void	print_error(const char *str);
-int		check_atoi_error(t_philo *philo);
+int	print_error(const char *str);
+int	check_atoi_error(t_params *params);
+int	parsing_argv_error(const char *str);
 
 #endif

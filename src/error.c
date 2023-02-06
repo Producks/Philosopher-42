@@ -6,38 +6,64 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/04 04:04:30 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/05 23:13:27 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdbool.h>
 #include "../include/struct.h"
 
-void	print_error(const char *str)
+int	print_error(const char *str)
 {
 	int	index;
 
+	index = 0;
 	while (str[index])
 	{
 		write(2, &str[index], 1);
 		index++;
 	}
 	write(2, "\n", 1);
+	return (-1);
 }
 
-int	check_atoi_error(t_philo *philo)
+int	check_atoi_error(t_params *params)
 {
-	if (philo->nbr_philosophers > 200 || philo->nbr_philosophers < 2)
-	{
-		print_error("Error: over 200 or under 2 number of philosopher");
-		return (-1);
-	}
-	if (philo->nbr_philosophers == -1 || philo->nbr_times_eat < 0
-		|| philo->time_to_die < 0 || philo->time_to_eat < 0
-		|| philo->time_to_die < 0)
-	{
-		print_error("Error: argument over MAX_INT");
-		return (-1);
-	}
+	if (params->nbr_philosophers > 200 || params->nbr_philosophers < 2)
+		return (print_error("Error: over 200 or under 2 nbr of philosopher"));
+	if (params->nbr_philosophers < 0 || params->nbr_times_eat < 0
+		|| params->time_to_die < 0 || params->time_to_eat < 0
+		|| params->time_to_sleep < 0)
+		return (print_error("Error: argument over MAX_INT"));
 	return (0);
+}
+
+int	parsing_argv_error(const char *str)
+{
+	int	index;
+
+	index = 0;
+	if (!str[index])
+	{
+		print_error("Error: argument is empty");
+		return (false);
+	}
+	if (str[index] == '-')
+	{
+		print_error("Error: integer is negative");
+		return (false);
+	}
+	if (str[index] == '+')
+		index++;
+	while (str[index])
+	{
+		if (str[index] < 48 || str[index] > 57)
+		{
+			print_error("Error: argument is not digit");
+			return (false);
+		}
+		index++;
+	}
+	return (true);
 }
