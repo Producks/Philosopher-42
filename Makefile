@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/04 01:12:55 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/06 21:45:33 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@
 NAME = philosopher
 # Compile stuff #
 CC = gcc
-CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
+CFGLAGS = -g -Wall -Werror -Wextra -pthread
+#CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
+#CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
 # Remove #
 REMOVE = rm -f
 # Run #
@@ -25,7 +27,8 @@ OBJS = ${SRC:.c=.o}
 SRC = 	./src/main.c \
 		./src/init.c \
 		./src/error.c \
-		./src/utils.c
+		./src/utils.c \
+		./src/simulation.c
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m

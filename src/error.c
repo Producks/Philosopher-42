@@ -6,12 +6,11 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/05 23:13:27 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/06 09:31:14 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdbool.h>
 #include "../include/struct.h"
 
 int	print_error(const char *str)
@@ -45,25 +44,16 @@ int	parsing_argv_error(const char *str)
 
 	index = 0;
 	if (!str[index])
-	{
-		print_error("Error: argument is empty");
-		return (false);
-	}
+		return (print_error("Error: argument is empty"));
 	if (str[index] == '-')
-	{
-		print_error("Error: integer is negative");
-		return (false);
-	}
+		return (print_error("Error: integer is negative"));
 	if (str[index] == '+')
 		index++;
 	while (str[index])
 	{
 		if (str[index] < 48 || str[index] > 57)
-		{
-			print_error("Error: argument is not digit");
-			return (false);
-		}
+			return (print_error("Error: argument is not a nbr"));
 		index++;
 	}
-	return (true);
+	return (0);
 }

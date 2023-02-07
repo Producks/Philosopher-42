@@ -6,11 +6,10 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/05 23:13:47 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/06 16:30:05 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -29,15 +28,14 @@ static int	init_thread_param(t_params *params)
 	while (index < params->nbr_philosophers)
 	{
 		params->param[index].id = philo_id;
-		params->param[index].time = 0;
+		params->param[index].time_last_meal = 0;
+		params->param[index].num_times_eaten = 0;
 		params->param[index].left_fork = &params->fork[index];
 		params->param[index].right_fork = &params->fork[(index + 1)
 			% params->nbr_philosophers];
-		printf("Philo %d left 🍴:%d\n", index, index);
-		printf("Philo %d right 🍴:%d\n", index, (index + 1)
-			% params->nbr_philosophers);
 		params->param[index].params = params;
 		index++;
+		philo_id++;
 	}
 }
 
@@ -52,6 +50,8 @@ static int	init_mutex(t_params *params)
 			return (-1);
 		index++;
 	}
+	//Fix here later;
+	pthread_mutex_init(&params->write, NULL);
 }
 
 static int	check_args(int argc, char **argv)
@@ -61,7 +61,7 @@ static int	check_args(int argc, char **argv)
 	index = 1;
 	while (index != argc)
 	{
-		if (parsing_argv_error(argv[index]) == false)
+		if (parsing_argv_error(argv[index]) == -1)
 			return (-1);
 		index++;
 	}

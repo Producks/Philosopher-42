@@ -75,3 +75,8 @@ During that time, they will need to hold two forks.
 philosophers have eaten at least number_of_times_each_philosopher_must_eat
 times, the simulation stops. If not specified, the simulation stops when a
 philosopher dies.
+
+
+brew install kcachegrind
+
+valgrind --tool=callgrind [executable name] [arguments]
