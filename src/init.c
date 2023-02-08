@@ -6,19 +6,33 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 22:13:43 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:18:22 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <stdbool.h>
+#include <limits.h>
 #include "../include/struct.h"
-#include "../include/utils.h"
 #include "../include/error.h"
-#include "../include/init.h"
 
-static int	init_thread_param(t_params *params)
+static int	ft_atoi(const char *str)
+{
+	long	result;
+
+	result = 0;
+	if (*str == '+')
+		str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		result = result * 10 + (*str - 48);
+		if (result > INT_MAX)
+			return (-1);
+		str++;
+	}
+	return ((int)result);
+}
+
+static void	init_thread_param(t_params *params)
 {
 	int	index;
 	int	philo_id;
@@ -28,6 +42,10 @@ static int	init_thread_param(t_params *params)
 	while (index < params->nbr_philosophers)
 	{
 		params->param[index].id = philo_id;
+		if (philo_id % 2 == 0)
+			params->param[index].even = true;
+		else
+			params->param[index].even = false;
 		params->param[index].time_last_meal = 0;
 		params->param[index].num_times_eaten = 0;
 		params->param[index].left_fork = &params->fork[index];
@@ -37,10 +55,8 @@ static int	init_thread_param(t_params *params)
 		index++;
 		philo_id++;
 	}
-	return (0);
 }
 
-//Fix here later;
 static int	init_mutex(t_params *params)
 {
 	int	index;
@@ -49,10 +65,11 @@ static int	init_mutex(t_params *params)
 	while (index < params->nbr_philosophers)
 	{
 		if (pthread_mutex_init(&params->fork[index], NULL) != 0)
-			return (-1);
+			return (mutex_init_failure(params, (index - 1)));
 		index++;
 	}
-	pthread_mutex_init(&params->write, NULL);
+	if (pthread_mutex_init(&params->write, NULL) != 0)
+		return (mutex_init_failure(params, index - 1));
 	return (0);
 }
 
@@ -87,7 +104,6 @@ int	init_params(int argc, char **argv, t_params *params)
 		return (-1);
 	if (init_mutex(params) == -1)
 		return (-1);
-	if (init_thread_param(params) == -1)
-		return (-1);
+	init_thread_param(params);
 	return (0);
 }

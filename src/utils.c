@@ -6,33 +6,15 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 19:55:45 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:01:01 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include <sys/time.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "../include/struct.h"
 #include "../include/utils.h"
-
-int	ft_atoi(const char *str)
-{
-	long	result;
-
-	result = 0;
-	if (*str == '+')
-		str++;
-	while (*str >= 48 && *str <= 57)
-	{
-		result = result * 10 + (*str - 48);
-		if (result > INT_MAX)
-			return (-1);
-		str++;
-	}
-	return ((int)result);
-}
 
 unsigned long int	time_stamp(void)
 {
@@ -73,4 +55,28 @@ void	philo_sleep(t_philo *philo)
 	current = time_stamp();
 	while (time_stamp() - current < philo->params->time_to_sleep)
 		usleep(1000);
+}
+
+void	philo_eat(t_philo *philo)
+{
+	if (philo->even == true)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_philo_state(philo, 0);
+		pthread_mutex_lock(philo->right_fork);
+		print_philo_state(philo, 0);
+		print_philo_state(philo, 1);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_philo_state(philo, 0);
+		pthread_mutex_lock(philo->left_fork);
+		print_philo_state(philo, 0);
+		print_philo_state(philo, 1);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
 }

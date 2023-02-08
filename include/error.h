@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:09:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 15:11:49 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 14:39:48 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 # define SUCCESS  0
 # define ARGC_ERROR 1
 # define ARGV_ERROR 2
+# define ENOMEM 15
 
 int	print_error(const char *str);
 int	check_atoi_error(t_params *params);
 int	parsing_argv_error(const char *str);
+int	mutex_init_failure(t_params *params, int index);
 
 #endif

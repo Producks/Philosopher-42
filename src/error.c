@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/06 09:31:14 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:18:47 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ int	parsing_argv_error(const char *str)
 		index++;
 	}
 	return (0);
+}
+
+int	mutex_init_failure(t_params *params, int index)
+{
+	while (index >= 0)
+	{
+		pthread_mutex_destroy(&params->fork[index]);
+		index--;
+	}
+	return (print_error("Error: mutex init failed"));
 }

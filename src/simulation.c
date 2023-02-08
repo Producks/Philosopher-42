@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 22:24:21 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 12:58:58 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*test(void *ptr)
 	while (philo->params->dead != true)
 	{
 		philo_sleep(philo);
+		philo_eat(philo);
 		check_death(philo);
 	}
 	return (NULL);
