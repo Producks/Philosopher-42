@@ -6,42 +6,62 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/06 22:24:17 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/07 22:24:21 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "../include/struct.h"
 #include "../include/utils.h"
 
-void *test(void *ptr)
+void	check_death(t_philo *philo)
 {
-    t_philo *philo;
-    
-    philo = (t_philo *)ptr;
-    philo->time_last_meal = time_stamp();
-    print_philo_state(philo, 0, "");
-    print_philo_state(philo, 1, "");
-    // print_philo_state(philo, 0, "has taken a fork 🍴\n");
-    // print_philo_state(philo, 0, "is eating 🍝\n");
-    return (NULL);
+	if (time_stamp() - philo->time_last_meal > philo->params->time_to_die
+		&& philo->params->dead == false)
+	{
+		pthread_mutex_lock(&philo->params->write);
+		if (philo->params->dead == true)
+		{
+			pthread_mutex_unlock(&philo->params->write);
+			return ;
+		}
+		philo->params->dead = true;
+		printf(RED "%ld %d died 💀\n",
+			(time_stamp() - philo->params->start_simul), philo->id);
+		pthread_mutex_unlock(&philo->params->write);
+	}
 }
 
-int simulation(t_params *params)
+void	*test(void *ptr)
 {
-    int         index;
-    pthread_t   threads[params->nbr_philosophers];
+	t_philo	*philo;
 
-    index = 0;
-    params->start_simul = time_stamp();
-    while (index < params->nbr_philosophers)
-    {
-        pthread_create(&threads[index], NULL, test, &params->param[index]);
-        index++;
-    }
-    index = 0;
-    while (index < params->nbr_philosophers)
-        pthread_join(threads[index++], NULL);
-    return (0);
+	philo = (t_philo *)ptr;
+	philo->time_last_meal = time_stamp();
+	while (philo->params->dead != true)
+	{
+		philo_sleep(philo);
+		check_death(philo);
+	}
+	return (NULL);
+}
+
+int	simulation(t_params *params)
+{
+	int			index;
+	pthread_t	threads[200];
+
+	index = 0;
+	params->start_simul = time_stamp();
+	while (index < params->nbr_philosophers)
+	{
+		pthread_create(&threads[index], NULL, test, &params->param[index]);
+		index++;
+	}
+	index = 0;
+	while (index < params->nbr_philosophers)
+		pthread_join(threads[index++], NULL);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/06 18:02:32 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/07 22:07:31 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCT_H
 
 # include <pthread.h>
+# include <stdbool.h>
 
 typedef struct s_philo
 {
@@ -27,15 +28,16 @@ typedef struct s_philo
 
 typedef struct s_params
 {
-	int				nbr_philosophers;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				nbr_times_eat;
+	int					nbr_philosophers;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					nbr_times_eat;
 	unsigned long int	start_simul;
-	t_philo			param[200];
-	pthread_mutex_t	fork[200];
-	pthread_mutex_t	write;
+	bool				dead;
+	t_philo				param[200];
+	pthread_mutex_t		fork[200];
+	pthread_mutex_t		write;
 }	t_params;
 
 #endif

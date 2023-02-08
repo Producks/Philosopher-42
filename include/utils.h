@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/06 18:12:56 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/07 22:07:41 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 int					ft_atoi(const char *str);
 unsigned long int	time_stamp(void);
-void                print_philo_state(t_philo *philo, int flag, char *message);
+void				print_philo_state(t_philo *philo, int flag);
+void				philo_sleep(t_philo *philo);
 
 #endif

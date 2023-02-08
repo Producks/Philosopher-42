@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/06 16:30:05 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/07 22:13:43 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ static int	init_thread_param(t_params *params)
 		index++;
 		philo_id++;
 	}
+	return (0);
 }
 
+//Fix here later;
 static int	init_mutex(t_params *params)
 {
 	int	index;
@@ -50,8 +52,8 @@ static int	init_mutex(t_params *params)
 			return (-1);
 		index++;
 	}
-	//Fix here later;
 	pthread_mutex_init(&params->write, NULL);
+	return (0);
 }
 
 static int	check_args(int argc, char **argv)
@@ -72,6 +74,7 @@ int	init_params(int argc, char **argv, t_params *params)
 {
 	if (check_args(argc, argv) == -1)
 		return (-1);
+	params->dead = false;
 	params->nbr_philosophers = ft_atoi(argv[1]);
 	params->time_to_die = ft_atoi(argv[2]);
 	params->time_to_eat = ft_atoi(argv[3]);
