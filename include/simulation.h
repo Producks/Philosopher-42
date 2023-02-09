@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:36:01 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 22:07:16 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:50:13 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "struct.h"
 
-int	simulation(t_params *params);
+int     start_simulation(t_params *params);
+void	die(t_philo *philo);
 
 #endif

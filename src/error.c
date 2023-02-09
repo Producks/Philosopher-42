@@ -6,11 +6,12 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/08 15:18:47 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:52:18 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdbool.h>
 #include "../include/struct.h"
 
 int	print_error(const char *str)
@@ -66,4 +67,15 @@ int	mutex_init_failure(t_params *params, int index)
 		index--;
 	}
 	return (print_error("Error: mutex init failed"));
+}
+
+int	create_failure(t_params *params, int index, pthread_t threads[200])
+{
+	params->dead = true;
+	while (index > 0)
+	{
+		pthread_join(threads[index], NULL);
+		index--;
+	}
+	return (print_error("Error: pthread create failure"));
 }

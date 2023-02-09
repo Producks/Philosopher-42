@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/08 15:18:22 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:28:08 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <limits.h>
 #include "../include/struct.h"
 #include "../include/error.h"
+
+#include <stdio.h>
 
 static int	ft_atoi(const char *str)
 {
@@ -32,28 +34,33 @@ static int	ft_atoi(const char *str)
 	return ((int)result);
 }
 
+/*screw the norm, making this function look like garbage*/
 static void	init_thread_param(t_params *params)
 {
 	int	index;
-	int	philo_id;
 
 	index = 0;
-	philo_id = 1;
 	while (index < params->nbr_philosophers)
 	{
-		params->param[index].id = philo_id;
-		if (philo_id % 2 == 0)
+		params->param[index].id = (index + 1);
+		if ((index + 1) % 2 == 0)
+		{
+			params->param[index].first_fork = &params->fork[index];
+			params->param[index].second_fork = &params->fork[(index + 1)
+				% params->nbr_philosophers];
 			params->param[index].even = true;
+		}
 		else
+		{
+			params->param[index].second_fork = &params->fork[index];
+			params->param[index].first_fork = &params->fork[(index + 1)
+				% params->nbr_philosophers];
 			params->param[index].even = false;
+		}
 		params->param[index].time_last_meal = 0;
 		params->param[index].num_times_eaten = 0;
-		params->param[index].left_fork = &params->fork[index];
-		params->param[index].right_fork = &params->fork[(index + 1)
-			% params->nbr_philosophers];
 		params->param[index].params = params;
 		index++;
-		philo_id++;
 	}
 }
 

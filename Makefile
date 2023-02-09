@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/08 14:24:34 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/09 02:08:35 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@
 NAME = philosopher
 # Compile stuff #
 CC = gcc
-CFGLAGS = -g -Wall -Werror -Wextra -pthread
-#CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
+#CFGLAGS = -g -Wall -Werror -Wextra -pthread
+CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
 #CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
 # Remove #
 REMOVE = rm -f

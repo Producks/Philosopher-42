@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/08 15:02:01 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:58:52 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ unsigned long int	time_stamp(void);
 void				print_philo_state(t_philo *philo, int flag);
 void				philo_sleep(t_philo *philo);
 void				philo_eat(t_philo *philo);
+void                wait_till_death(t_philo *philo);
 
 #endif

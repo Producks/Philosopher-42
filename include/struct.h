@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/08 00:28:26 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/08 22:13:05 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_philo
 	int					num_times_eaten;
 	bool				even;
 	unsigned long int	time_last_meal;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*first_fork;
+	pthread_mutex_t		*second_fork;
 	struct s_params		*params;
 }	t_philo;
 
