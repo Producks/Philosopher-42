@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 02:34:20 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:51:39 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void	philo_sleep(t_philo *philo)
 
 	print_philo_state(philo, 2);
 	current = time_stamp();
-	//if ()
+	if (philo->params->time_to_sleep - (current - philo->time_last_meal) >= philo->params->time_to_die)
+	{
+		wait_till_death(philo);
+		return ;
+	}
 	usleep(1000 * philo->params->time_to_sleep);
 }
 
@@ -67,12 +71,13 @@ void	philo_eat(t_philo *philo)
 	print_philo_state(philo, 0);
 	pthread_mutex_lock(philo->second_fork);
 	print_philo_state(philo, 0);
-	// if ((time_stamp() - philo->time_last_meal) > (philo->params->time_to_die))
-	// {
-	// 	pthread_mutex_unlock(philo->first_fork);
-	// 	pthread_mutex_unlock(philo->second_fork);
-	// 	wait_till_death(philo);
-	// }
+	if (philo->params->time_to_eat + (time_stamp() - philo->time_last_meal) >= philo->params->time_to_die)
+	{
+		wait_till_death(philo);
+		pthread_mutex_unlock(philo->first_fork);
+		pthread_mutex_unlock(philo->second_fork);
+		return ;
+	}
 	print_philo_state(philo, 1);
 	usleep(philo->params->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->first_fork);
@@ -83,6 +88,13 @@ void	philo_eat(t_philo *philo)
 
 void	wait_till_death(t_philo *philo)
 {
-	usleep((philo->params->time_to_die - (time_stamp() - philo->time_last_meal)) * 1000);
+	int	sleep_time;
+
+	pthread_mutex_lock(&philo->params->write);
+	sleep_time = ((philo->params->time_to_die - (time_stamp() - philo->time_last_meal)) * 1000);
+	if (sleep_time < 0)
+		sleep_time = 0;
+	usleep(sleep_time);
 	die(philo);
+	pthread_mutex_unlock(&philo->params->write);
 }

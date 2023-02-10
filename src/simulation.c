@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 02:54:01 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 18:52:12 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,25 @@
 
 void	die(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->params->write);
 	if (philo->params->dead == true)
 	{
-		pthread_mutex_unlock(&philo->params->write);
 		return ;
 	}
 	philo->params->dead = true;
 	printf(RED "%ld %d died 💀\n",
 		(time_stamp() - philo->params->start_simul), philo->id);
-	pthread_mutex_unlock(&philo->params->write);
+	philo->time_of_death = (time_stamp() - philo->params->start_simul);
+	philo->params->log = philo->id - 1;
+}
+
+static void	think_big(t_philo *philo)
+{
+	int	think_time;
+	print_philo_state(philo, 3);
+	think_time = (philo->params->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
+	if (think_time < 0)
+		think_time = 0;
+	usleep(think_time);
 }
 
 /*wait ->(time until death) - 500*/
@@ -44,12 +53,13 @@ void	*dinner(void *ptr)
 	philo->time_last_meal = philo->params->start_simul;
 	if (philo->even == true)
 		usleep(philo->params->time_to_eat / 2);
-	while (philo->params->dead != true && philo->num_times_eaten != philo->params->nbr_times_eat)
+	while (philo->params->dead != true)
 	{
 		philo_eat(philo);
+		if (philo->num_times_eaten == philo->params->nbr_times_eat)
+			break ;
 		philo_sleep(philo);
-		philo_sleep(philo);
-		//smart_think(philo);
+		think_big(philo);
 	}
 	return (NULL);
 }

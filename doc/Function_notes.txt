@@ -80,3 +80,5 @@ philosopher dies.
 brew install kcachegrind
 
 valgrind --tool=callgrind [executable name] [arguments]
+
+200 410 200 100 10

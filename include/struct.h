@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/08 22:13:05 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:55:56 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef struct s_philo
 	int					id;
 	int					num_times_eaten;
 	bool				even;
-	unsigned long int	time_last_meal;
+	long int			time_last_meal;
+	long int			time_of_death;
 	pthread_mutex_t		*first_fork;
 	pthread_mutex_t		*second_fork;
 	struct s_params		*params;
@@ -34,11 +35,12 @@ typedef struct s_params
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nbr_times_eat;
-	unsigned long int	start_simul;
+	long int			start_simul;
 	bool				dead;
 	t_philo				param[200];
 	pthread_mutex_t		fork[200];
 	pthread_mutex_t		write;
+	int					log;
 }	t_params;
 
 #endif

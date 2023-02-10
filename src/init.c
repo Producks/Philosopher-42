@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 00:28:08 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:26:17 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <limits.h>
 #include "../include/struct.h"
 #include "../include/error.h"
-
-#include <stdio.h>
 
 static int	ft_atoi(const char *str)
 {
@@ -112,5 +110,6 @@ int	init_params(int argc, char **argv, t_params *params)
 	if (init_mutex(params) == -1)
 		return (-1);
 	init_thread_param(params);
+	params->log = 0;
 	return (0);
 }
