@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 23:21:24 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 01:27:36 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	start_simulation(t_params *params)
 			return (create_failure(params, (i - 1), threads));
 		i++;
 	}
-	printf("%ld\n", (time_stamp() - params->start_simul));
 	i = 0;
 	while (i < params->nbr_philosophers)
 		pthread_join(threads[i++], NULL);

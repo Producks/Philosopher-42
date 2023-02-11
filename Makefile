@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/10 23:47:20 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/11 11:14:16 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC = 	./src/main.c \
 		./src/init.c \
 		./src/error.c \
 		./src/utils.c \
-		./src/simulation.c
+		./src/simulation.c \
+		./src/print.c
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m

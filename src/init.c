@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 19:03:54 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:40:25 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ static int	init_mutex(t_params *params)
 	}
 	if (pthread_mutex_init(&params->write, NULL) != 0)
 		return (mutex_init_failure(params, index - 1));
-	// if (pthread_mutex_init(&params->dead_check, NULL) != 0);
-	// {
-	// 	pthread_mutex_destroy(&params->write);
-	// 	return (mutex_init_failure(params, index - 1));
-	// }
+	if (pthread_mutex_init(&params->dead_check, NULL) != 0)
+	{
+		pthread_mutex_destroy(&params->write);
+		return (mutex_init_failure(params, index - 1));
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 23:47:28 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:14:36 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ inline unsigned long int	time_stamp(void)
 void	print_philo_state(t_philo *philo, int flag)
 {
 	pthread_mutex_lock(&philo->params->write);
-	if (philo->params->dead == true)
+	if (check_death(philo) == true)
 	{
 		pthread_mutex_unlock(&philo->params->write);
 		return ;
@@ -48,28 +48,6 @@ void	print_philo_state(t_philo *philo, int flag)
 			(time_stamp() - philo->params->start_simul), philo->id);
 	pthread_mutex_unlock(&philo->params->write);
 }
-
-// void	print_philo_state(t_philo *philo, int flag)
-// {
-// 	pthread_mutex_lock(&philo->params->write);
-// 	if (philo->params->dead == true)
-// 	{
-// 		pthread_mutex_unlock(&philo->params->write);
-// 		return ;
-// 	}
-// 	else if (flag == 0)
-// 		printf(CYN "%ld %d has taken a fork 🍴\n", (time_stamp() - philo->params->start_simul), philo->id);
-// 	else if (flag == 1)
-// 		printf(YEL "%ld %d is eating 🍝\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	else if (flag == 2)
-// 		printf(BLU "%ld %d is sleeping 💤\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	else
-// 		printf(GRN "%ld %d is thinking 🤔\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	pthread_mutex_unlock(&philo->params->write);
-// }
 
 /**/
 void	philo_sleep(t_philo *philo)
