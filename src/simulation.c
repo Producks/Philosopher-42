@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 19:34:18 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 23:21:24 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,21 @@
 
 bool	check_death(t_philo *philo)
 {
-	return (true);
+	pthread_mutex_lock(&philo->params->dead_check);
+	if (philo->params->dead == true)
+	{
+		pthread_mutex_unlock(&philo->params->dead_check);
+		return (true);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->params->dead_check);
+		return (false);
+	}
 }
 
 void	die(t_philo *philo)
 {
-	if (philo->params->dead == true)
-		return ;
 	philo->params->dead = true;
 	printf(RED "%ld %d died 💀\n",
 		(time_stamp() - philo->params->start_simul), philo->id);
@@ -40,7 +48,7 @@ static void	think_big(t_philo *philo)
 	print_philo_state(philo, 3);
 	think_time = (philo->params->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
 	if (think_time < 0)
-		think_time = 0;
+		return ;
 	usleep(think_time);
 }
 
@@ -52,7 +60,7 @@ void	*dinner(void *ptr)
 	philo->time_last_meal = philo->params->start_simul;
 	if (philo->even == true)
 		usleep(philo->params->time_to_eat / 2);
-	while (philo->params->dead != true)
+	while (check_death(philo) != true)
 	{
 		philo_eat(philo);
 		if (philo->num_times_eaten == philo->params->nbr_times_eat)
@@ -60,6 +68,11 @@ void	*dinner(void *ptr)
 		philo_sleep(philo);
 		think_big(philo);
 	}
+	return (NULL);
+}
+
+void	*test(void *ptr)
+{
 	return (NULL);
 }
 
@@ -76,6 +89,7 @@ int	start_simulation(t_params *params)
 			return (create_failure(params, (i - 1), threads));
 		i++;
 	}
+	printf("%ld\n", (time_stamp() - params->start_simul));
 	i = 0;
 	while (i < params->nbr_philosophers)
 		pthread_join(threads[i++], NULL);

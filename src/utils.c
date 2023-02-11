@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 19:41:41 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 23:47:28 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "../include/utils.h"
 #include "../include/simulation.h"
 
-unsigned long int	time_stamp(void)
+inline unsigned long int	time_stamp(void)
 {
 	struct timeval	ms;
 
@@ -71,7 +71,7 @@ void	print_philo_state(t_philo *philo, int flag)
 // 	pthread_mutex_unlock(&philo->params->write);
 // }
 
-/*time to sleep * 1000*/
+/**/
 void	philo_sleep(t_philo *philo)
 {
 	unsigned long int	current;
@@ -113,10 +113,13 @@ void	wait_till_death(t_philo *philo)
 	int	sleep_time;
 
 	pthread_mutex_lock(&philo->params->write);
+	pthread_mutex_lock(&philo->params->dead_check);
 	sleep_time = ((philo->params->time_to_die - (time_stamp() - philo->time_last_meal)) * 1000);
 	if (sleep_time < 0)
 		sleep_time = 0;
 	usleep(sleep_time);
-	die(philo);
+	if (philo->params->dead == false)
+		die(philo);
 	pthread_mutex_unlock(&philo->params->write);
+	pthread_mutex_unlock(&philo->params->dead_check);
 }

@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation.h                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 09:36:01 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 21:19:13 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/10 22:28:38 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/10 22:31:14 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMULATION_H
-# define SIMULATION_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include "struct.h"
+# include <unistd.h>
+# include <stdarg.h>
 
-bool	check_death(t_philo *philo);
-int     start_simulation(t_params *params);
-void	die(t_philo *philo);
+void	ft_printf(const char *str, ...);
 
 #endif
