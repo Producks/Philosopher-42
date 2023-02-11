@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 18:52:12 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:34:18 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 #include "../include/utils.h"
 #include "../include/error.h"
 
-//eat time + sleep time < death_timer
-//2 times my eat_time > death_timer
-// pour decaller moitier / eat_time
+bool	check_death(t_philo *philo)
+{
+	return (true);
+}
 
 void	die(t_philo *philo)
 {
 	if (philo->params->dead == true)
-	{
 		return ;
-	}
 	philo->params->dead = true;
 	printf(RED "%ld %d died 💀\n",
 		(time_stamp() - philo->params->start_simul), philo->id);
@@ -37,6 +36,7 @@ void	die(t_philo *philo)
 static void	think_big(t_philo *philo)
 {
 	int	think_time;
+
 	print_philo_state(philo, 3);
 	think_time = (philo->params->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
 	if (think_time < 0)
@@ -44,7 +44,6 @@ static void	think_big(t_philo *philo)
 	usleep(think_time);
 }
 
-/*wait ->(time until death) - 500*/
 void	*dinner(void *ptr)
 {
 	t_philo	*philo;

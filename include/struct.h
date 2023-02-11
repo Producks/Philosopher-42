@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 14:55:56 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:54:02 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_params
 	t_philo				param[200];
 	pthread_mutex_t		fork[200];
 	pthread_mutex_t		write;
+	pthread_mutex_t		dead_check;
 	int					log;
 }	t_params;
 

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 16:51:39 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:41:41 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,40 @@ void	print_philo_state(t_philo *philo, int flag)
 		return ;
 	}
 	else if (flag == 0)
-		printf(CYN "%ld %d has taken a fork 🍴\n", (time_stamp() - philo->params->start_simul), philo->id);
+		printf("%ld %d has taken a fork\n", (time_stamp() - philo->params->start_simul), philo->id);
 	else if (flag == 1)
-		printf(YEL "%ld %d is eating 🍝\n",
+		printf("%ld %d is eating\n",
 			(time_stamp() - philo->params->start_simul), philo->id);
 	else if (flag == 2)
-		printf(BLU "%ld %d is sleeping 💤\n",
+		printf("%ld %d is sleeping\n",
 			(time_stamp() - philo->params->start_simul), philo->id);
 	else
-		printf(GRN "%ld %d is thinking 🤔\n",
+		printf("%ld %d is thinking\n",
 			(time_stamp() - philo->params->start_simul), philo->id);
 	pthread_mutex_unlock(&philo->params->write);
 }
+
+// void	print_philo_state(t_philo *philo, int flag)
+// {
+// 	pthread_mutex_lock(&philo->params->write);
+// 	if (philo->params->dead == true)
+// 	{
+// 		pthread_mutex_unlock(&philo->params->write);
+// 		return ;
+// 	}
+// 	else if (flag == 0)
+// 		printf(CYN "%ld %d has taken a fork 🍴\n", (time_stamp() - philo->params->start_simul), philo->id);
+// 	else if (flag == 1)
+// 		printf(YEL "%ld %d is eating 🍝\n",
+// 			(time_stamp() - philo->params->start_simul), philo->id);
+// 	else if (flag == 2)
+// 		printf(BLU "%ld %d is sleeping 💤\n",
+// 			(time_stamp() - philo->params->start_simul), philo->id);
+// 	else
+// 		printf(GRN "%ld %d is thinking 🤔\n",
+// 			(time_stamp() - philo->params->start_simul), philo->id);
+// 	pthread_mutex_unlock(&philo->params->write);
+// }
 
 /*time to sleep * 1000*/
 void	philo_sleep(t_philo *philo)

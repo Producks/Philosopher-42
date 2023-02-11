@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:01:24 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/09 15:07:11 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:45:06 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	generate_log(t_params params)
 	if (params.dead == true)
 	{
 		printf(RED "Philo who died:%d\n", params.param[params.log].id);
-		printf("Number of time eaten:%d\n", params.param[params.log].num_times_eaten);
+		printf("Number of time eaten:%d\n",
+			params.param[params.log].num_times_eaten);
 		printf("Time of death:%ld\n", params.param[params.log].time_of_death);
 		printf(WHT);
 	}
@@ -47,6 +48,7 @@ static void	free_mutexes(t_params *params)
 		index++;
 	}
 	pthread_mutex_destroy(&params->write);
+	pthread_mutex_destroy(&params->dead_check);
 }
 
 int	main(int argc, char **argv)
