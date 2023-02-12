@@ -6,13 +6,14 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 23:15:40 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:23:56 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdbool.h>
 #include "../include/struct.h"
+#include "../include/utils.h"
 
 int	print_error(const char *str)
 {

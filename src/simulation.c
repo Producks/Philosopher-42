@@ -6,16 +6,18 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 01:27:36 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:25:54 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "../include/struct.h"
 #include "../include/utils.h"
 #include "../include/error.h"
+#include "../include/philo_action.h"
 
 bool	check_death(t_philo *philo)
 {
@@ -32,26 +34,6 @@ bool	check_death(t_philo *philo)
 	}
 }
 
-void	die(t_philo *philo)
-{
-	philo->params->dead = true;
-	printf(RED "%ld %d died 💀\n",
-		(time_stamp() - philo->params->start_simul), philo->id);
-	philo->time_of_death = (time_stamp() - philo->params->start_simul);
-	philo->params->log = philo->id - 1;
-}
-
-static void	think_big(t_philo *philo)
-{
-	int	think_time;
-
-	print_philo_state(philo, 3);
-	think_time = (philo->params->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
-	if (think_time < 0)
-		return ;
-	usleep(think_time);
-}
-
 void	*dinner(void *ptr)
 {
 	t_philo	*philo;
@@ -66,7 +48,7 @@ void	*dinner(void *ptr)
 		if (philo->num_times_eaten == philo->params->nbr_times_eat)
 			break ;
 		philo_sleep(philo);
-		think_big(philo);
+		philo_think(philo);
 	}
 	return (NULL);
 }
@@ -92,5 +74,6 @@ int	start_simulation(t_params *params)
 	i = 0;
 	while (i < params->nbr_philosophers)
 		pthread_join(threads[i++], NULL);
+	printf("Time done:%ld\n", (time_stamp() - params->start_simul));
 	return (0);
 }

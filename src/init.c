@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 11:40:25 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:04:34 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,45 @@
 #include <limits.h>
 #include "../include/struct.h"
 #include "../include/error.h"
+#include "../include/utils.h"
 
-static int	ft_atoi(const char *str)
+static void init_thread_param_two(t_params *params, int index, int id)
 {
-	long	result;
-
-	result = 0;
-	if (*str == '+')
-		str++;
-	while (*str >= 48 && *str <= 57)
+	if (id % 2 == 0)
 	{
-		result = result * 10 + (*str - 48);
-		if (result > INT_MAX)
-			return (-1);
-		str++;
+		params->param[index].first_fork = &params->fork[index];
+		params->param[index].second_fork = &params->fork[id
+			% params->nbr_philosophers];
+		params->param[index].even = true;
 	}
-	return ((int)result);
+	else
+	{
+		params->param[index].second_fork = &params->fork[index];
+		params->param[index].first_fork = &params->fork[id
+			% params->nbr_philosophers];
+		params->param[index].even = false;
+	}
+	params->param[index].write = &params->write;
+	params->param[index].dead_check = &params->dead_check;
+	params->param[index].dead = &params->dead;
 }
 
 /*screw the norm, making this function look like garbage*/
 static void	init_thread_param(t_params *params)
 {
 	int	index;
+	int	philo_id;
 
 	index = 0;
+	philo_id = 1;
 	while (index < params->nbr_philosophers)
 	{
-		params->param[index].id = (index + 1);
-		if ((index + 1) % 2 == 0)
-		{
-			params->param[index].first_fork = &params->fork[index];
-			params->param[index].second_fork = &params->fork[(index + 1)
-				% params->nbr_philosophers];
-			params->param[index].even = true;
-		}
-		else
-		{
-			params->param[index].second_fork = &params->fork[index];
-			params->param[index].first_fork = &params->fork[(index + 1)
-				% params->nbr_philosophers];
-			params->param[index].even = false;
-		}
+		params->param[index].id = philo_id;
+		init_thread_param_two(params, index, philo_id);
 		params->param[index].time_last_meal = 0;
 		params->param[index].num_times_eaten = 0;
 		params->param[index].params = params;
+		philo_id++;
 		index++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/10 18:54:02 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:03:31 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@
 # include <pthread.h>
 # include <stdbool.h>
 
+# define RED   "\x1B[31m"
+
 typedef struct s_philo
 {
 	int					id;
 	int					num_times_eaten;
 	bool				even;
+	bool				*dead;
 	long int			time_last_meal;
 	long int			time_of_death;
 	pthread_mutex_t		*first_fork;
 	pthread_mutex_t		*second_fork;
+	pthread_mutex_t		*write;
+	pthread_mutex_t		*dead_check;
 	struct s_params		*params;
 }	t_philo;
 
