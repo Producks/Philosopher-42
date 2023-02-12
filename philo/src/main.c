@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:01:24 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 11:37:43 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/12 00:36:23 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "../include/error.h"
 #include "../include/simulation.h"
 #include "../include/utils.h"
+#include "../include/parsing.h"
+#include "../include/mutex.h"
 
 static void	generate_log(t_params params)
 {
@@ -37,26 +39,14 @@ static void	generate_log(t_params params)
 		printf(GRN "Simulation was a success!\n" WHT);
 }
 
-static void	free_mutexes(t_params *params)
-{
-	int	index;
-
-	index = 0;
-	while (index < params->nbr_philosophers)
-	{
-		pthread_mutex_destroy(&params->fork[index]);
-		index++;
-	}
-	pthread_mutex_destroy(&params->write);
-	pthread_mutex_destroy(&params->dead_check);
-}
-
 int	main(int argc, char **argv)
 {
 	t_params	params;
 
 	if (argc < 5 || argc > 6)
 		return (ARGC_ERROR);
+	if (check_arguments(argc, argv) == -1)
+		return (ARGV_ERROR);
 	if (init_params(argc, argv, &params) == -1)
 		return (ARGV_ERROR);
 	if (start_simulation(&params) == -1)

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:39 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 23:04:34 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/12 00:36:41 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../include/struct.h"
 #include "../include/error.h"
 #include "../include/utils.h"
+#include "../include/mutex.h"
 
 static void init_thread_param_two(t_params *params, int index, int id)
 {
@@ -57,45 +58,8 @@ static void	init_thread_param(t_params *params)
 	}
 }
 
-static int	init_mutex(t_params *params)
-{
-	int	index;
-
-	index = 0;
-	while (index < params->nbr_philosophers)
-	{
-		if (pthread_mutex_init(&params->fork[index], NULL) != 0)
-			return (mutex_init_failure(params, (index - 1)));
-		index++;
-	}
-	if (pthread_mutex_init(&params->write, NULL) != 0)
-		return (mutex_init_failure(params, index - 1));
-	if (pthread_mutex_init(&params->dead_check, NULL) != 0)
-	{
-		pthread_mutex_destroy(&params->write);
-		return (mutex_init_failure(params, index - 1));
-	}
-	return (0);
-}
-
-static int	check_args(int argc, char **argv)
-{
-	int	index;
-
-	index = 1;
-	while (index != argc)
-	{
-		if (parsing_argv_error(argv[index]) == -1)
-			return (-1);
-		index++;
-	}
-	return (0);
-}
-
 int	init_params(int argc, char **argv, t_params *params)
 {
-	if (check_args(argc, argv) == -1)
-		return (-1);
 	params->dead = false;
 	params->nbr_philosophers = ft_atoi(argv[1]);
 	params->time_to_die = ft_atoi(argv[2]);
@@ -105,8 +69,6 @@ int	init_params(int argc, char **argv, t_params *params)
 		params->nbr_times_eat = ft_atoi(argv[5]);
 	else
 		params->nbr_times_eat = 0;
-	if (check_atoi_error(params) == -1)
-		return (-1);
 	if (init_mutex(params) == -1)
 		return (-1);
 	init_thread_param(params);

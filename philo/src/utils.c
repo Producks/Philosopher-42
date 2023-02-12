@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 19:31:47 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/12 00:26:00 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)result);
+}
+
+int	print_error(const char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+	{
+		write(2, &str[index], 1);
+		index++;
+	}
+	write(2, "\n", 1);
+	return (-1);
 }

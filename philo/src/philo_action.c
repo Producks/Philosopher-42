@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 19:20:44 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/12 00:17:22 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	philo_think(t_philo *philo)
 {
 	int	think_time;
 
-	print_philo_state(philo, 2);
+	print_philo_state(philo, 3);
 	//print_think(philo, (time_stamp() - philo->params->start_simul), philo->id);
 	think_time = (philo->params->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
 	if (think_time < 0)

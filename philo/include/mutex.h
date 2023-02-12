@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   mutex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 19:31:51 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 00:37:39 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef MUTEX_H
+# define MUTEX_H
 
-# include "struct.h"
+#include "struct.h"
 
-# define RED   "\x1B[31m"
-# define GRN   "\x1B[32m"
-# define YEL   "\x1B[33m"
-# define BLU   "\x1B[34m"
-# define MAG   "\x1B[35m"
-# define CYN   "\x1B[36m"
-# define WHT   "\x1B[37m"
-# define RESET "\x1B[0m"
-
-unsigned long int	time_stamp(void);
-int                 ft_atoi(const char *str);
+void	free_mutexes(t_params *params);
+int	init_mutex(t_params *params);
 
 #endif
