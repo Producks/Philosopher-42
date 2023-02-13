@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 01:42:56 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 01:43:35 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "struct.h"
-
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
+int	ft_atoi(const char *str);
+int	print_error(const char *str);
 
 #endif

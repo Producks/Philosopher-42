@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   philo_action.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 21:10:38 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 21:10:50 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#ifndef PHILO_ACTION
+# define PHILO_ACTION
 
-# include "struct.h"
 
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
 
 #endif

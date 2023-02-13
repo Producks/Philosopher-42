@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   thread.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 14:46:18 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 16:04:40 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#ifndef THREAD_H
+# define THREAD_H
 
-# include "struct.h"
+# include <semaphore.h>
 
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
+typedef struct s_philo
+{
+	int			id;
+	int			num_times_eaten;
+	bool		even;
+	long int 	time_last_meal;
+	sem_t		*write;
+	sem_t		*dead_check;
+}	t_philo;
 
 #endif

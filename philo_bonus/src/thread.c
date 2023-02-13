@@ -1,21 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 14:46:12 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 14:46:13 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
-
-# include "struct.h"
-
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
-
-#endif

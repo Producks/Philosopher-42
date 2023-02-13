@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 01:44:41 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 12:38:45 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include "struct.h"
-
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
+int	check_arguments(int argc, char **argv);
 
 #endif

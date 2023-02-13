@@ -6,12 +6,12 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/12 00:36:49 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/12 01:40:26 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Executable #
-NAME = philosopher
+NAME = philo
 # Compile stuff #
 CC = gcc
 #CFGLAGS = -g -Wall -Werror -Wextra -pthread
@@ -20,7 +20,7 @@ CFGLAGS = -Wall -Werror -Wextra -pthread
 # Remove #
 REMOVE = rm -f
 # Run #
-RUN = ./philosopher
+RUN = ./philo
 # OBJS #
 OBJS = ${SRC:.c=.o}
 # Source #

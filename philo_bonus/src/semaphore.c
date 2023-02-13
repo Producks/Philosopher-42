@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.h                                            :+:      :+:    :+:   */
+/*   semaphore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:33:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 01:49:42 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/12 16:07:16 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/12 18:17:48 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MUTEX_H
-# define MUTEX_H
+#include <semaphore.h>
+#include <stdio.h>
+#include "../include/semaphore.h"
 
-# include "struct.h"
+void	sem_test(void)
+{
+	t_sema	semaphore;
 
-void	free_mutexes(t_params *params);
-int		init_mutex(t_params *params);
-
-#endif
+	sem_init(&semaphore.write, 0, 1);
+	sem_post(&semaphore.write);
+	sem_wait(&semaphore.write);
+	printf("test\n");
+	sem_wait(&semaphore.write);
+	printf("test\n");
+	sem_wait(&semaphore.write);
+	sem_close(&semaphore.write);
+	return ;
+}

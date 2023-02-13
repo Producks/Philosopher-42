@@ -14,22 +14,22 @@ Sem_open
 Prototype:  sem_t *sem_open(const char *name, int oflag); or sem_t *sem_open(const char *name, int oflag,
                        mode_t mode, unsigned int value);
 Library: #include <semaphore.h>
-Use for this project: TODO
+Use for this project: Create semaphore
 
 Sem_close
 Prototype:  int sem_close(sem_t *sem);
 Library:  #include <semaphore.h>
-Use for this project: TODO
+Use for this project: Close the semaphore
 
 Sem_post
 Prototype:  int sem_post(sem_t *sem);
 Library: #include <semaphore.h>
-Use for this project: TODO
+Use for this project: +1 to number of forks
 
 Sem_wait
 Prototype:   int sem_wait(sem_t *sem);
 Library: #include <semaphore.h>
-Use for this project: TODO
+Use for this project: -1 to number of forks
 
 Sem_unlink
 Prototype:    int sem_unlink(const char *name);
