@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_action.h                                     :+:      :+:    :+:   */
+/*   rules.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 21:10:38 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 18:12:01 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/13 01:05:23 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/13 01:15:04 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ACTION
-# define PHILO_ACTION
+#ifndef RULES_H
+# define RULES_H
 
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
+typedef struct s_rules
+{
+	int					nbr_philosophers;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					nbr_times_eat;
+}	t_rules;
+
+void	init_rules(int argc, char **argv, t_rules *rules);
 
 #endif
