@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 00:17:22 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/14 02:20:20 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../include/simulation.h"
 #include "../include/utils.h"
 
-static void	philo_wait_till_death(t_philo *philo)
+void	philo_wait_till_death(t_philo *philo)
 {
 	int	sleep_time;
 
@@ -38,7 +38,7 @@ static void	philo_wait_till_death(t_philo *philo)
 	pthread_mutex_unlock(&philo->params->dead_check);
 }
 
-static void	print_philo_state(t_philo *philo, int flag)
+void	print_philo_state(t_philo *philo, int flag)
 {
 	pthread_mutex_lock(&philo->params->write);
 	if (check_death(philo) == true)

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 21:11:45 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 18:11:38 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/14 12:44:38 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	philo_eat(t_philo *philo)
 		return ;
 	}
 	print_philo_state(philo, 1);
-	sem_post(philo->forks);
-	sem_post(philo->forks);
 	usleep(philo->time_to_eat * 1000);
+	sem_post(philo->forks);
+	sem_post(philo->forks);
 	philo->time_last_meal = time_stamp();
 	philo->num_times_eaten++;
 }

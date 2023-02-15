@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/11 19:25:54 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/14 02:19:11 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,16 @@ void	*dinner(void *ptr)
 	return (NULL);
 }
 
-void	*test(void *ptr)
+void	*one(void *ptr)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)ptr;
+	philo->time_last_meal = philo->params->start_simul;
+	pthread_mutex_lock(philo->first_fork);
+	print_philo_state(philo, 0);
+	philo_wait_till_death(philo);
+	pthread_mutex_unlock(philo->first_fork);
 	return (NULL);
 }
 
@@ -64,6 +72,13 @@ int	start_simulation(t_params *params)
 	pthread_t	threads[200];
 
 	i = 0;
+	if (params->nbr_philosophers == 1)
+	{
+		params->start_simul = time_stamp();
+		pthread_create(&threads[0], NULL, one, &params->param[i]);
+		pthread_join(threads[0], NULL);
+		return (0);
+	}
 	params->start_simul = time_stamp();
 	while (i < params->nbr_philosophers)
 	{
@@ -74,6 +89,5 @@ int	start_simulation(t_params *params)
 	i = 0;
 	while (i < params->nbr_philosophers)
 		pthread_join(threads[i++], NULL);
-	printf("Time done:%ld\n", (time_stamp() - params->start_simul));
 	return (0);
 }
