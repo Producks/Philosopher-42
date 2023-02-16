@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:13:37 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/14 02:13:34 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:25:16 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_ACTION_H
 
 # include "struct.h"
+# include "philo.h"
 
 void	philo_sleep(t_philo *philo);
 void	philo_eat(t_philo *philo);

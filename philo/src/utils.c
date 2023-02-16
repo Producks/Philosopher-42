@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 00:26:00 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/15 21:09:32 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 #include <limits.h>
 #include "../include/philo_action.h"
 
-unsigned long int	time_stamp(void)
+unsigned int	time_stamp(void)
 {
-	struct timeval	ms;
+	static struct timeval	start_simul = {0, 0};
+	struct timeval			ms;
 
+	if (start_simul.tv_sec == 0)
+		gettimeofday(&start_simul, 0);
 	gettimeofday(&ms, 0);
-	return (ms.tv_sec * 1000 + ms.tv_usec / 1000);
+	return ((ms.tv_sec - start_simul.tv_sec) * 1000
+		+ (ms.tv_usec - start_simul.tv_usec) / 1000);
 }
 
 int	ft_atoi(const char *str)

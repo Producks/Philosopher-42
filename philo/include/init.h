@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:43:47 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/07 22:07:08 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:36:02 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "struct.h"
 
-int	init_params(int argc, char **argv, t_params *params);
+int	init_arguments(int argc, char **argv, t_arguments *arguments);
 
 #endif

@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/14 22:58:41 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/15 21:18:06 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef PHILO_H
+# define PHILO_H
 
-# include <pthread.h>
-# include <stdbool.h>
+# include "mutex.h"
+# include "struct.h"
 
-# define RED   "\x1B[31m"
-
-typedef struct s_sim_params
+typedef struct s_philo
 {
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					nbr_times_eat;
-}	t_sim_params;
-
-typedef struct s_arguments
-{
-	int					nbr_philosophers;
+	int					id;
+	int					num_times_eaten;
+	int					time_last_meal;
+	int					time_of_death;
+	pthread_mutex_t		*first_fork;
+	pthread_mutex_t		*second_fork;
+	pthread_mutex_t		*write_lock;
+	bool				*dead;
+	pthread_mutex_t		*dead_lock;
 	t_sim_params		sim_params;
-}	t_arguments;
+}	t_philo;
+
+void	init_philo(t_arguments *arguments, t_philo *philo,
+			t_mutex *mutex, bool *dead_philo);
 
 #endif

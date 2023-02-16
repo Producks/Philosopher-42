@@ -5,55 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 00:32:46 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 00:37:05 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/15 19:53:00 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/15 21:15:50 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/struct.h"
+#include "../include/mutex.h"
 #include "../include/utils.h"
+#include <stdio.h>
 
-int	mutex_init_failure(t_params *params, int index)
+int	mutex_init_failure(pthread_mutex_t *fork, int index)
 {
 	while (index >= 0)
 	{
-		pthread_mutex_destroy(&params->fork[index]);
+		pthread_mutex_destroy(&fork[index]);
 		index--;
 	}
 	return (print_error("Error: mutex init failed"));
 }
 
-int	init_mutex(t_params *params)
+void	free_mutexes(t_mutex *mutex, int nbr_philosopher)
 {
 	int	index;
 
 	index = 0;
-	while (index < params->nbr_philosophers)
+	while (index < nbr_philosopher)
 	{
-		if (pthread_mutex_init(&params->fork[index], NULL) != 0)
-			return (mutex_init_failure(params, (index - 1)));
+		pthread_mutex_destroy(&mutex->fork[index]);
 		index++;
 	}
-	if (pthread_mutex_init(&params->write, NULL) != 0)
-		return (mutex_init_failure(params, index - 1));
-	if (pthread_mutex_init(&params->dead_check, NULL) != 0)
-	{
-		pthread_mutex_destroy(&params->write);
-		return (mutex_init_failure(params, index - 1));
-	}
-	return (0);
+	pthread_mutex_destroy(&mutex->write_lock);
+	pthread_mutex_destroy(&mutex->dead_lock);
 }
 
-void	free_mutexes(t_params *params)
+int	init_mutex(t_mutex *mutex, int nbr_philosopher)
 {
 	int	index;
 
 	index = 0;
-	while (index < params->nbr_philosophers)
+	while (index < nbr_philosopher)
 	{
-		pthread_mutex_destroy(&params->fork[index]);
+		if (pthread_mutex_init(&mutex->fork[index], NULL) != 0)
+			return (mutex_init_failure(mutex->fork, (index - 1)));
 		index++;
 	}
-	pthread_mutex_destroy(&params->write);
-	pthread_mutex_destroy(&params->dead_check);
+	if (pthread_mutex_init(&mutex->write_lock, NULL) != 0)
+		return (mutex_init_failure(mutex->fork, (index - 1)));
+	if (pthread_mutex_init(&mutex->dead_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&mutex->write_lock);
+		return (mutex_init_failure(mutex->fork, (index - 1)));
+	}
+	puts("test_two");
+	return (0);
 }
