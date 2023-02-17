@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/17 00:47:19 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/17 13:00:29 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = 	./src/main.c \
 		./src/simulation.c \
 		./src/philo_action.c \
 		./src/mutex.c \
-		./src/philo.c
+		./src/philo.c \
+		./src/log.c
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m

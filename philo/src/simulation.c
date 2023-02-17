@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:35:13 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 12:42:22 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "philo.h"
 #include "mutex.h"
 #include "error.h"
+#include "log.h"
 
 /*The simulation function loops until the philosophers have eaten enough
 times or one dies. To ensure that even-numbered philosophers eat later
@@ -101,12 +102,12 @@ int	start_simulation(t_arguments *arguments, int index)
 	{
 		philo[index].start_simul = &start_simul;
 		if (pthread_create(&threads[index], NULL, launch, &philo[index]) != 0)
-			return (create_failure(threads, &mutex.dead_lock, &dead_philo,
-					(index - 1)));
+			return (pfail(threads, &mutex.dead_lock, &dead_philo, (index - 1)));
 	}
 	start_simul = time_stamp();
 	pthread_mutex_unlock(&mutex.launch);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
-	return (free_mutexes(&mutex, arguments->nbr_philosophers));
+	free_mutexes(&mutex, arguments->nbr_philosophers);
+	return (generate_log(dead_philo, start_simul, *arguments));
 }

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 20:09:45 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 01:18:34 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 12:28:13 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ typedef struct s_mutex
 }	t_mutex;
 
 int		init_mutex(t_mutex *mutex, int nbr_philosopher);
-int		free_mutexes(t_mutex *mutex, int nbr_philosopher);
+void	free_mutexes(t_mutex *mutex, int nbr_philosopher);
 
 #endif

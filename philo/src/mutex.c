@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:53:00 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:26:38 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 12:28:02 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mutex_init_failure(pthread_mutex_t *fork, int index)
 }
 
 /*Free mutexes when we are done using them*/
-int	free_mutexes(t_mutex *mutex, int nbr_philosopher)
+void	free_mutexes(t_mutex *mutex, int nbr_philosopher)
 {
 	int	index;
 
@@ -39,7 +39,7 @@ int	free_mutexes(t_mutex *mutex, int nbr_philosopher)
 	}
 	pthread_mutex_destroy(&mutex->write_lock);
 	pthread_mutex_destroy(&mutex->dead_lock);
-	return (0);
+	pthread_mutex_destroy(&mutex->launch);
 }
 
 /*Initialize the mutexes we need and also check incase they fail*/
