@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:18:06 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/16 23:43:30 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ typedef struct s_philo
 	int					num_times_eaten;
 	int					time_last_meal;
 	int					time_of_death;
+	unsigned int		*start_simul;
 	pthread_mutex_t		*first_fork;
 	pthread_mutex_t		*second_fork;
 	pthread_mutex_t		*write_lock;
+	pthread_mutex_t		*launch;
 	bool				*dead;
 	pthread_mutex_t		*dead_lock;
 	t_sim_params		sim_params;

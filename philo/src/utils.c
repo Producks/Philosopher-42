@@ -6,14 +6,30 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:09:32 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/16 23:25:38 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <unistd.h>
 #include <limits.h>
+#include "../include/philo.h"
 #include "../include/philo_action.h"
+
+bool	check_death(t_philo *philo)
+{
+	pthread_mutex_lock(philo->dead_lock);
+	if (*philo->dead == true)
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (true);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (false);
+	}
+}
 
 unsigned int	time_stamp(void)
 {

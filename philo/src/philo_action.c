@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:12:25 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 00:18:59 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	philo_wait_till_death(t_philo *philo)
 	{
 		*philo->dead = true;
 		printf(RED "%d %d died 💀\n", time_stamp(), philo->id);
-		philo->time_of_death = time_stamp();
 	}
 	pthread_mutex_unlock(philo->write_lock);
 	pthread_mutex_unlock(philo->dead_lock);

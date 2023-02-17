@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:03:57 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:15:26 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/16 23:34:45 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_philo(t_arguments *arguments, t_philo *philo,
 				- (1 - index % 2)) % arguments->nbr_philosophers];
 		philo[index].write_lock = &mutex->write_lock;
 		philo[index].dead_lock = &mutex->dead_lock;
+		philo[index].launch = &mutex->launch;
 		philo[index].dead = dead_philo;
 		philo[index].num_times_eaten = 0;
 		philo[index].sim_params = arguments->sim_params;

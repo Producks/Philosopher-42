@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/15 20:27:52 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/16 00:16:37 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = philo
 CC = gcc
 #CFGLAGS = -g -Wall -Werror -Wextra -pthread
 #CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
-CFGLAGS = -Wall -Werror -Wextra -pthread
+CFGLAGS = -Wall -Werror -Wextra -pthread -O2
 # Remove #
 REMOVE = rm -f
 # Run #

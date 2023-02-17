@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:53:00 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:15:50 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/15 21:33:23 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ int	init_mutex(t_mutex *mutex, int nbr_philosopher)
 		pthread_mutex_destroy(&mutex->write_lock);
 		return (mutex_init_failure(mutex->fork, (index - 1)));
 	}
-	puts("test_two");
 	return (0);
 }
