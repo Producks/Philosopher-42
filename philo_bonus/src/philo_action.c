@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 21:11:45 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/14 12:44:38 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 05:01:30 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	print_philo_state(t_philo *philo, int flag)
 
 void	philo_eat(t_philo *philo)
 {
+	sem_wait(philo->availability);
 	sem_wait(philo->forks);
 	print_philo_state(philo, 0);
 	sem_wait(philo->forks);
@@ -77,6 +78,7 @@ void	philo_eat(t_philo *philo)
 	usleep(philo->time_to_eat * 1000);
 	sem_post(philo->forks);
 	sem_post(philo->forks);
+	sem_post(philo->availability);
 	philo->time_last_meal = time_stamp();
 	philo->num_times_eaten++;
 }

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 14:46:18 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 17:20:13 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:57:07 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	sem_t		*write;
 	sem_t		*dead_check;
 	sem_t		*forks;
+	sem_t		*availability;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;

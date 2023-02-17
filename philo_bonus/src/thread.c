@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 14:46:12 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 18:13:12 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:57:28 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_thread(t_hold *temp)
 		philo[index].write = &temp->semaphore.write;
 		philo[index].dead_check = &temp->semaphore.dead_check;
 		philo[index].forks = &temp->semaphore.forks;
+		philo[index].availability = &temp->semaphore.availability;
 		philo[index].dead = &dead;
 		philo[index].start_simul = &start_simul;
 		philo_id++;
