@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   philo_action.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 00:20:06 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/16 23:26:07 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/11 16:13:37 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/17 00:42:48 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef PHILO_ACTION_H
+# define PHILO_ACTION_H
 
-# include <pthread.h>
-# include <stdbool.h>
+# include "arguments.h"
+# include "philo.h"
 
-# define RED   "\x1B[31m"
-
-typedef struct s_sim_params
-{
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					nbr_times_eat;
-}	t_sim_params;
-
-typedef struct s_arguments
-{
-	int					nbr_philosophers;
-	t_sim_params		sim_params;
-}	t_arguments;
+void	philo_sleep(t_philo *philo);
+void	philo_eat(t_philo *philo);
+void	philo_think(t_philo *philo);
+void	print_philo_state(t_philo *philo, int flag);
+void	philo_wait_till_death(t_philo *philo);
 
 #endif

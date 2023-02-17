@@ -6,17 +6,19 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 00:18:59 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:27:09 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include "../include/struct.h"
-#include "../include/simulation.h"
-#include "../include/utils.h"
-#include "../include/philo.h"
+#include "arguments.h"
+#include "philo.h"
+#include "utils.h"
 
+/*A philo is about to die, wait till the moment of death
+to announce it. Use 2 mutex to remove race conditions/data races.
+Also set philo->dead to true so simulation end for everyone*/
 void	philo_wait_till_death(t_philo *philo)
 {
 	int	sleep_time;
@@ -37,6 +39,8 @@ void	philo_wait_till_death(t_philo *philo)
 	pthread_mutex_unlock(philo->dead_lock);
 }
 
+/*Print the action/state of the philo, use a mutex to
+make sure only one print so there no overlap(data races)*/
 void	print_philo_state(t_philo *philo, int flag)
 {
 	pthread_mutex_lock(philo->write_lock);
@@ -56,6 +60,9 @@ void	print_philo_state(t_philo *philo, int flag)
 	pthread_mutex_unlock(philo->write_lock);
 }
 
+/*Function that handle everything that has to do with eating.
+Uses multiples mutexes to avoid race condition. Also check
+if the philo has enough time to eat*/
 void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->first_fork);
@@ -78,6 +85,8 @@ void	philo_eat(t_philo *philo)
 	philo->num_times_eaten++;
 }
 
+/*Handle the sleep part of the simulation, doesn't require a
+mutex outside of philo_state. Check if the philo has time to sleep*/
 void	philo_sleep(t_philo *philo)
 {
 	unsigned int	current;
@@ -93,6 +102,9 @@ void	philo_sleep(t_philo *philo)
 	usleep(1000 * philo->sim_params.time_to_sleep);
 }
 
+/*Handle the think part of the simulation, doesn't require a mutex
+outside of print_philo state. Will think until there 500ms left.
+Can be easily adjusted for another value depending on the computer*/
 void	philo_think(t_philo *philo)
 {
 	int	think_time;

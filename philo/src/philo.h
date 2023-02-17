@@ -6,15 +6,16 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/16 23:43:30 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:09:28 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <stdbool.h>
 # include "mutex.h"
-# include "struct.h"
+# include "arguments.h"
 
 typedef struct s_philo
 {

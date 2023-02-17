@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 23:20:18 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:16:19 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:17:46 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#include "../include/utils.h"
-#include "../include/error.h"
+#include "arguments.h"
+#include "utils.h"
 
+/*Check if the arguments are digits only and positive*/
 static int	parsing_argv_error(const char *str)
 {
 	int	index;
@@ -34,6 +34,8 @@ static int	parsing_argv_error(const char *str)
 	return (0);
 }
 
+/*Check if the values passed in arguments exceed a certain amount
+	or are negative*/
 static int	parsing_value(int value, int index)
 {
 	if (index == 1)
@@ -50,7 +52,9 @@ static int	parsing_value(int value, int index)
 	}
 }
 
-int	check_arguments(int argc, const char **argv)
+/*Function that check if the arguments passed are valid for the project.
+Will return -1 with an print in the stder explaing what was the error*/
+int	check_arguments(int argc, char **argv)
 {
 	int	index;
 
@@ -63,5 +67,19 @@ int	check_arguments(int argc, const char **argv)
 			return (-1);
 		index++;
 	}
+	return (0);
+}
+
+/*Initialize t_arguments struct with the arguments the user has given us*/
+int	init_arguments(int argc, char **argv, t_arguments *arguments)
+{
+	arguments->nbr_philosophers = ft_atoi(argv[1]);
+	arguments->sim_params.time_to_die = ft_atoi(argv[2]);
+	arguments->sim_params.time_to_eat = ft_atoi(argv[3]);
+	arguments->sim_params.time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		arguments->sim_params.nbr_times_eat = ft_atoi(argv[5]);
+	else
+		arguments->sim_params.nbr_times_eat = 0;
 	return (0);
 }

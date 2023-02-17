@@ -6,21 +6,24 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 00:19:55 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:35:13 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <stdio.h>
-#include "../include/struct.h"
-#include "../include/utils.h"
-#include "../include/error.h"
-#include "../include/philo_action.h"
-#include "../include/philo.h"
-#include "../include/mutex.h"
+#include "arguments.h"
+#include "utils.h"
+#include "philo_action.h"
+#include "philo.h"
+#include "mutex.h"
+#include "error.h"
 
+/*The simulation function loops until the philosophers have eaten enough
+times or one dies. To ensure that even-numbered philosophers eat later
+than odd-numbered ones,the odd-numbered philosophers are allowed to eat first,
+and then the even-numbered philosophers are allowed to eat. The README file
+provides further details on how my solution works.*/
 static void	dinner(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
@@ -35,6 +38,8 @@ static void	dinner(t_philo *philo)
 	}
 }
 
+/*Function incase there 1 philo, really annoying
+since the project should have a minimum of two*/
 static void	*one(void *ptr)
 {
 	t_philo	*philo;
@@ -42,11 +47,13 @@ static void	*one(void *ptr)
 	philo = (t_philo *)ptr;
 	pthread_mutex_lock(philo->first_fork);
 	print_philo_state(philo, 0);
-	philo_wait_till_death(philo);
+	usleep(philo->sim_params.time_to_die * 1000);
+	printf(RED "%d %d died 💀\n", time_stamp(), philo->id);
 	pthread_mutex_unlock(philo->first_fork);
 	return (NULL);
 }
 
+/*Handle if there only 1 philo*/
 static int	handle_one(t_philo *philo, pthread_t *threads, t_mutex *mutex)
 {
 	if (pthread_create(&threads[0], NULL, one, &philo[0]) != 0)
@@ -59,6 +66,9 @@ static int	handle_one(t_philo *philo, pthread_t *threads, t_mutex *mutex)
 	return (0);
 }
 
+/*Launch all threads at the same time!
+This save a bit of time over calling dinner right away.
+If we had access to pthread_barrier_t this would be even better*/
 static void	*launch(void *ptr)
 {
 	t_philo	*philo;
@@ -71,6 +81,7 @@ static void	*launch(void *ptr)
 	return (NULL);
 }
 
+/*Big boy function*/
 int	start_simulation(t_arguments *arguments, int index)
 {
 	unsigned int		start_simul;
@@ -79,6 +90,7 @@ int	start_simulation(t_arguments *arguments, int index)
 	t_philo				philo[200];
 	pthread_t			threads[200];
 
+	dead_philo = false;
 	if (init_mutex(&mutex, arguments->nbr_philosophers) == -1)
 		return (-1);
 	init_philo(arguments, philo, &mutex, &dead_philo);
@@ -96,6 +108,5 @@ int	start_simulation(t_arguments *arguments, int index)
 	pthread_mutex_unlock(&mutex.launch);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
-	free_mutexes(&mutex, arguments->nbr_philosophers);
-	return (0);
+	return (free_mutexes(&mutex, arguments->nbr_philosophers));
 }

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_action.h                                     :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 16:13:37 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 20:25:16 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/17 01:40:49 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ACTION_H
-# define PHILO_ACTION_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "struct.h"
+# include "arguments.h"
 # include "philo.h"
 
-void	philo_sleep(t_philo *philo);
-void	philo_eat(t_philo *philo);
-void	philo_think(t_philo *philo);
-void	print_philo_state(t_philo *philo, int flag);
-void	philo_wait_till_death(t_philo *philo);
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define WHT   "\x1B[37m"
+# define RESET "\x1B[0m"
+
+unsigned int	time_stamp(void);
+int				ft_atoi(const char *str);
+int				print_error(const char *str);
+bool			check_death(t_philo *philo);
 
 #endif

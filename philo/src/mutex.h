@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   mutex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 00:43:47 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 20:36:02 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/15 20:09:45 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/17 01:18:34 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef MUTEX_H
+# define MUTEX_H
 
-# include "struct.h"
+# include <pthread.h>
 
-int	init_arguments(int argc, char **argv, t_arguments *arguments);
+typedef struct s_mutex
+{
+	pthread_mutex_t	fork[200];
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	launch;
+}	t_mutex;
+
+int		init_mutex(t_mutex *mutex, int nbr_philosopher);
+int		free_mutexes(t_mutex *mutex, int nbr_philosopher);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:07:17 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 01:34:47 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 03:28:47 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_sema
 	sem_t	write;
 	sem_t	dead_check;
 	sem_t	forks;
+	sem_t	availablity;
 }	t_sema;
 
 void	init_sem(t_sema	*semaphore, int nbr_of_philo);

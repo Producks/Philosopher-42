@@ -6,14 +6,15 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/15 21:16:57 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/17 04:33:00 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <pthread.h>
 #include <stdbool.h>
-#include "../include/struct.h"
-#include "../include/utils.h"
+#include "arguments.h"
+#include "mutex.h"
+#include "utils.h"
 
 int	create_failure(pthread_t *threads, pthread_mutex_t *dead_lock,
 	bool *dead_check, int index)
