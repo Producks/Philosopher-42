@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   unstuck.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 01:44:41 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/12 12:38:45 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/18 04:45:39 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/18 04:47:29 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include <semaphore.h>
 
-int	check_arguments(int argc, char **argv);
-
-#endif
+/*Only use if someone kill the program while running during the correction,
+should clear up the names so the program can run again. This is only use
+if it's necessary*/
+int	main(void)
+{
+	sem_unlink("/forks");
+	sem_unlink("/write");
+	sem_unlink("/launch");
+	sem_unlink("/availability");
+	sem_unlink("/dead_check");
+	return (0);
+}

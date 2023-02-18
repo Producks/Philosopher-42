@@ -81,27 +81,6 @@ brew install kcachegrind
 
 valgrind --tool=callgrind [executable name] [arguments]
 valgrind --leak-check=yes
+valgrind --tool=helgrind
 
 200 410 200 100 10
-
-// void	print_philo_state(t_philo *philo, int flag)
-// {
-// 	pthread_mutex_lock(&philo->params->write);
-// 	if (philo->params->dead == true)
-// 	{
-// 		pthread_mutex_unlock(&philo->params->write);
-// 		return ;
-// 	}
-// 	else if (flag == 0)
-// 		printf(CYN "%ld %d has taken a fork 🍴\n", (time_stamp() - philo->params->start_simul), philo->id);
-// 	else if (flag == 1)
-// 		printf(YEL "%ld %d is eating 🍝\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	else if (flag == 2)
-// 		printf(BLU "%ld %d is sleeping 💤\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	else
-// 		printf(GRN "%ld %d is thinking 🤔\n",
-// 			(time_stamp() - philo->params->start_simul), philo->id);
-// 	pthread_mutex_unlock(&philo->params->write);
-// }

@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread.h                                           :+:      :+:    :+:   */
+/*   log.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 14:46:18 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:57:07 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/17 12:29:44 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/17 13:32:10 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef THREAD_H
-# define THREAD_H
+#ifndef LOG_H
+# define LOG_H
 
-# include "struct.h"
-# include <semaphore.h>
 # include <stdbool.h>
+# include "arguments.h"
 
-typedef struct s_philo
-{
-	int			id;
-	int			num_times_eaten;
-	bool		even;
-	bool		*dead;
-	long int 	time_last_meal;
-	long int	*start_simul;
-	sem_t		*write;
-	sem_t		*dead_check;
-	sem_t		*forks;
-	sem_t		*availability;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			nbr_times_eat;
-}	t_philo;
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define WHT   "\x1B[37m"
+# define RESET "\x1B[0m"
 
-void	init_thread(t_hold *temp);
+int	generate_log(bool dead_philo, unsigned int start_simul,
+		t_arguments arguments);
 
 #endif

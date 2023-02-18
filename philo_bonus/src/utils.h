@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   semaphore.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 18:07:17 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:55:26 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/17 12:33:53 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEMAPHORE_H
-# define SEMAPHORE_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <semaphore.h>
+# include "arguments.h"
+# include "philo.h"
 
-typedef struct s_sema
-{
-	sem_t	write;
-	sem_t	dead_check;
-	sem_t	forks;
-	sem_t	availability;
-}	t_sema;
+# define RED   "\x1B[31m"
 
-void	init_sem(t_sema	*semaphore, int nbr_of_philo);
-void	destroy_sem(t_sema *semaphore);
+unsigned int	time_stamp(void);
+int				ft_atoi(const char *str);
+int				print_error(const char *str);
+bool			check_death(t_philo *philo);
 
 #endif

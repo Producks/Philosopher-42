@@ -5,40 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 21:11:45 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 05:01:30 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/18 03:23:29 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include "../include/thread.h"
-#include "../include/utils.h"
-#include "../include/simulation.h"
+#include "arguments.h"
+#include "philo.h"
+#include "utils.h"
 
-# define RED   "\x1B[31m"
-
-static void	philo_wait_till_death(t_philo *philo)
+/*A philo is about to die, wait till the moment of death
+to announce it. Use 2 mutex to remove race conditions/data races.
+Also set philo->dead to true so simulation end for everyone*/
+void	philo_wait_till_death(t_philo *philo)
 {
 	int	sleep_time;
 
 	sem_wait(philo->write);
 	sem_wait(philo->dead_check);
-	sleep_time = ((philo->time_to_die - (time_stamp() - philo->time_last_meal)) * 1000);
+	sleep_time = ((philo->sim_params.time_to_die
+				- (time_stamp() - philo->time_last_meal)) * 1000);
 	if (sleep_time < 0)
 		sleep_time = 0;
 	usleep(sleep_time);
 	if (*philo->dead == false)
 	{
 		*philo->dead = true;
-		printf(RED "%ld %d died 💀\n",
-			(time_stamp() - *philo->start_simul), philo->id);
+		printf(RED "%d %d died 💀\n", time_stamp(), philo->id);
 	}
 	sem_post(philo->write);
 	sem_post(philo->dead_check);
 }
 
-static void	print_philo_state(t_philo *philo, int flag)
+/*Print the action/state of the philo, use a mutex to
+make sure only one print so there no overlap(data races)*/
+void	print_philo_state(t_philo *philo, int flag)
 {
 	sem_wait(philo->write);
 	if (check_death(philo) == true)
@@ -47,19 +50,19 @@ static void	print_philo_state(t_philo *philo, int flag)
 		return ;
 	}
 	else if (flag == 0)
-		printf("%ld %d has taken a fork\n", (time_stamp() - *philo->start_simul), philo->id);
+		printf("%d %d has taken a fork\n", time_stamp(), philo->id);
 	else if (flag == 1)
-		printf("%ld %d is eating\n",
-			(time_stamp() - *philo->start_simul), philo->id);
+		printf("%d %d is eating\n", time_stamp(), philo->id);
 	else if (flag == 2)
-		printf("%ld %d is sleeping\n",
-			(time_stamp() - *philo->start_simul), philo->id);
+		printf("%d %d is sleeping\n", time_stamp(), philo->id);
 	else
-		printf("%ld %d is thinking\n",
-			(time_stamp() - *philo->start_simul), philo->id);
+		printf("%d %d is thinking\n", time_stamp(), philo->id);
 	sem_post(philo->write);
 }
 
+/*Function that handle everything that has to do with eating.
+Uses multiples mutexes to avoid race condition. Also check
+if the philo has enough time to eat*/
 void	philo_eat(t_philo *philo)
 {
 	sem_wait(philo->availability);
@@ -67,15 +70,17 @@ void	philo_eat(t_philo *philo)
 	print_philo_state(philo, 0);
 	sem_wait(philo->forks);
 	print_philo_state(philo, 0);
-	if (philo->time_to_eat + (time_stamp() - philo->time_last_meal) >= philo->time_to_die)
+	if (philo->sim_params.time_to_eat + (time_stamp()
+			- philo->time_last_meal) >= philo->sim_params.time_to_die)
 	{
-		sem_post(philo->forks);
-		sem_post(philo->forks);
 		philo_wait_till_death(philo);
+		sem_post(philo->forks);
+		sem_post(philo->forks);
+		sem_post(philo->availability);
 		return ;
 	}
 	print_philo_state(philo, 1);
-	usleep(philo->time_to_eat * 1000);
+	usleep(philo->sim_params.time_to_eat * 1000);
 	sem_post(philo->forks);
 	sem_post(philo->forks);
 	sem_post(philo->availability);
@@ -83,28 +88,33 @@ void	philo_eat(t_philo *philo)
 	philo->num_times_eaten++;
 }
 
+/*Handle the sleep part of the simulation, doesn't require a
+mutex outside of philo_state. Check if the philo has time to sleep*/
 void	philo_sleep(t_philo *philo)
 {
-	unsigned long int	current;
+	unsigned int	current;
 
 	print_philo_state(philo, 2);
-	//print_sleep(philo, (time_stamp() - philo->start_simul), philo->id);
 	current = time_stamp();
-	if (philo->time_to_sleep - (current - philo->time_last_meal) >= philo->time_to_die)
+	if (philo->sim_params.time_to_sleep - (current
+			- philo->time_last_meal) >= philo->sim_params.time_to_die)
 	{
 		philo_wait_till_death(philo);
 		return ;
 	}
-	usleep(1000 * philo->time_to_sleep);
+	usleep(1000 * philo->sim_params.time_to_sleep);
 }
 
+/*Handle the think part of the simulation, doesn't require a mutex
+outside of print_philo state. Will think until there 500ms left.
+Can be easily adjusted for another value depending on the computer*/
 void	philo_think(t_philo *philo)
 {
 	int	think_time;
 
 	print_philo_state(philo, 3);
-	//print_think(philo, (time_stamp() - philo->start_simul), philo->id);
-	think_time = (philo->time_to_die - (time_stamp() - philo->time_last_meal) - 500) * 1000;
+	think_time = (philo->sim_params.time_to_die - (time_stamp()
+				- philo->time_last_meal) - 500) * 1000;
 	if (think_time < 0)
 		return ;
 	usleep(think_time);

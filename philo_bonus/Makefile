@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:36:12 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/13 17:53:14 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/17 17:23:58 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,13 +25,14 @@ RUN = ./philo
 OBJS = ${SRC:.c=.o}
 # Source #
 SRC = 	./src/main.c \
-		./src/parsing.c \
-		./src/utils.c \
+		./src/arguments.c \
+		./src/error.c \
 		./src/semaphore.c \
-		./src/thread.c \
-		./src/rules.c \
+		./src/utils.c \
 		./src/simulation.c \
-		./src/philo_action.c
+		./src/philo_action.c \
+		./src/philo.c \
+		./src/log.c 
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m

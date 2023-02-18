@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.h                                              :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 12:29:44 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 13:32:10 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/18 04:49:14 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_H
-# define LOG_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdbool.h>
 # include "arguments.h"
+# include "semaphore.h"
 
-# define RED   "\x1B[31m"
-# define GRN   "\x1B[32m"
-# define YEL   "\x1B[33m"
-# define BLU   "\x1B[34m"
-# define MAG   "\x1B[35m"
-# define CYN   "\x1B[36m"
-# define WHT   "\x1B[37m"
-# define RESET "\x1B[0m"
+typedef struct s_philo
+{
+	int					id;
+	int					num_times_eaten;
+	int					time_last_meal;
+	int					time_of_death;
+	unsigned int		*start_simul;
+	sem_t				*write;
+	sem_t				*dead_check;
+	sem_t				*forks;
+	sem_t				*availability;
+	sem_t				*launch;
+	bool				*dead;
+	t_sim_params		sim_params;
+}	t_philo;
 
-int	generate_log(bool dead_philo, unsigned int start_simul,
-		t_arguments arguments);
+void	init_philo(t_arguments *arguments, t_philo *philo,
+			t_sema *semaphores, bool *dead_philo);
 
 #endif

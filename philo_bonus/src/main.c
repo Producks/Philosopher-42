@@ -5,27 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 01:23:45 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/13 09:58:58 by ddemers          ###   ########.fr       */
+/*   Created: 2023/02/02 15:01:24 by ddemers           #+#    #+#             */
+/*   Updated: 2023/02/18 04:45:32 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/struct.h"
-#include "../include/parsing.h"
-#include "../include/semaphore.h"
-#include "../include/rules.h"
-#include "../include/thread.h"
+#include "arguments.h"
+#include "error.h"
+#include "simulation.h"
 
 int	main(int argc, char **argv)
 {
-	t_hold	temp;
+	t_arguments	arguments;
 
 	if (argc < 5 || argc > 6)
-		return (1);
+		return (ARGC_ERROR);
 	if (check_arguments(argc, argv) == -1)
-		return (1);
-	init_rules(argc, argv, &temp.rules);
-	init_sem(&temp.semaphore, temp.rules.nbr_philosophers);
-	init_thread(&temp);
-	return (0);
+		return (ARGV_ERROR);
+	if (init_arguments(argc, argv, &arguments) == -1)
+		return (ARGV_ERROR);
+	if (start_simulation(&arguments, -1) == -1)
+		return (ENOMEM);
+	return (SUCCESS);
 }
