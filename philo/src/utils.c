@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 18:51:51 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/19 15:35:58 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	generate_log(bool dead_philo, unsigned int start_simul,
 	printf("Time before death:%d\n", arguments.sim_params.time_to_die);
 	printf("Time to eat:%d\n", arguments.sim_params.time_to_eat);
 	printf("Time to sleep:%d\n", arguments.sim_params.time_to_sleep);
-	printf("Number of times to eat:%d\n", arguments.nbr_philosophers);
+	printf("Number of times to eat:%d\n", arguments.sim_params.nbr_times_eat);
 	if (dead_philo == true)
 		printf(RED "☠️ One of the philo died☠️\n");
 	else
