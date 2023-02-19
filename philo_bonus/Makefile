@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:36:12 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/19 03:14:18 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/19 15:22:11 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,8 @@
 NAME = philo_bonus
 # Compile stuff #
 CC = gcc
-#CFGLAGS = -g -Wall -Werror -Wextra -pthread
 #CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
-CFGLAGS = -Wall -Werror -Wextra -pthread
+CFGLAGS = -Wall -Werror -Wextra -pthread -O2
 # Remove #
 REMOVE = rm -f
 # Run #
