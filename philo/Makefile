@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 14:51:17 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/17 13:00:29 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/19 03:10:11 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@
 NAME = philo
 # Compile stuff #
 CC = gcc
-#CFGLAGS = -g -Wall -Werror -Wextra -pthread
 #CFGLAGS = -Wall -Werror -Wextra -fsanitize=thread -g -pthread
 CFGLAGS = -Wall -Werror -Wextra -pthread -O2
 # Remove #
@@ -31,8 +30,7 @@ SRC = 	./src/main.c \
 		./src/simulation.c \
 		./src/philo_action.c \
 		./src/mutex.c \
-		./src/philo.c \
-		./src/log.c
+		./src/philo.c
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m
@@ -45,6 +43,14 @@ WHITE = \033[0;37m
 
 $(NAME): $(OBJS)
 		${CC} ${CFGLAGS} ${OBJS} ${FLAGS} -o ${NAME}
+		@echo "🤔  🍴  🤔  🍴  🤔"
+		@echo "🍴               🍴"
+		@echo "🤔      🍝      🤔"
+		@echo "🍴               🍴"
+		@echo "🤔  🍴  🤔  🍴  🤔"
+		@echo "$(PURPLE)Philosophers$(YELLOW)     _      _      _"
+		@echo "$(BLUE)By:Ddmers@42$(YELLOW)  __(.)< __(.)> __(.)="
+		@echo "$(RED)Version 1.03$(YELLOW)  \___)  \___)  \___) $(WHITE)"
 
 all: ${NAME}
 
@@ -55,7 +61,5 @@ fclean:clean
 	${REMOVE} ${NAME}
 
 re: fclean all
-
-run: ${NAME} ${RUN}
 
 .PHONY: all clean fclean re

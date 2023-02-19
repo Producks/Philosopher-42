@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 12:42:22 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 19:12:13 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "philo.h"
 #include "mutex.h"
 #include "error.h"
-#include "log.h"
 
 /*The simulation function loops until the philosophers have eaten enough
 times or one dies. To ensure that even-numbered philosophers eat later

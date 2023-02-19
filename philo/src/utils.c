@@ -6,15 +6,17 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:30:34 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 18:51:51 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <limits.h>
 #include "philo.h"
 #include "mutex.h"
+#include "utils.h"
 
 /*Check if a philo died, use a mutex to avoid race condition*/
 bool	check_death(t_philo *philo)
@@ -77,4 +79,23 @@ int	print_error(const char *str)
 	}
 	write(2, "\n", 1);
 	return (-1);
+}
+
+/*Generate a small log after the simulation has ended*/
+int	generate_log(bool dead_philo, unsigned int start_simul,
+	t_arguments arguments)
+{
+	printf(
+		MAG "Simulation log\n"
+		YEL "Configuration:\n"
+		"Number of philosophers:%d\n", arguments.nbr_philosophers);
+	printf("Time before death:%d\n", arguments.sim_params.time_to_die);
+	printf("Time to eat:%d\n", arguments.sim_params.time_to_eat);
+	printf("Time to sleep:%d\n", arguments.sim_params.time_to_sleep);
+	printf("Number of times to eat:%d\n", arguments.nbr_philosophers);
+	if (dead_philo == true)
+		printf(RED "☠️ One of the philo died☠️\n");
+	else
+		printf(GRN "🥳 Simulation was a success!🎉\n");
+	return (0);
 }

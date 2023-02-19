@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 03:31:40 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 19:17:02 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "philo_action.h"
 #include "philo.h"
 #include "error.h"
-#include "log.h"
 
 /*The simulation function loops until the philosophers have eaten enough
 times or one dies. To ensure that even-numbered philosophers eat later
@@ -39,8 +38,8 @@ static void	dinner(t_philo *philo)
 	}
 }
 
-// /*Function incase there 1 philo, really annoying
-// since the project should have a minimum of two*/
+/*Function incase there 1 philo, really annoying
+since the project should have a minimum of two*/
 static void	*one(void *ptr)
 {
 	t_philo	*philo;
@@ -52,7 +51,7 @@ static void	*one(void *ptr)
 	return (NULL);
 }
 
-// /*Handle if there only 1 philo*/
+/*Handle if there only 1 philo*/
 static int	handle_one(t_philo *philo, pthread_t *threads, t_sema *semaphores)
 {
 	if (pthread_create(&threads[0], NULL, one, &philo[0]) != 0)
@@ -65,9 +64,9 @@ static int	handle_one(t_philo *philo, pthread_t *threads, t_sema *semaphores)
 	return (0);
 }
 
-// /*Launch all threads at the same time!
-// This save a bit of time over calling dinner right away.
-// If we had access to pthread_barrier_t this would be even better*/
+/*Launch all threads at the same time!
+This save a bit of time over calling dinner right away.
+If we had access to pthread_barrier_t this would be even better*/
 static void	*launch(void *ptr)
 {
 	t_philo	*philo;

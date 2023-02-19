@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:07:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 04:48:38 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:38:58 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "utils.h"
 #include <stdio.h>
 
+/*Really really important! If we don't free them we can't run the program
+again*/
 void	destroy_sem(t_sema *semaphores)
 {
 	sem_close(semaphores->forks);
@@ -30,6 +32,7 @@ void	destroy_sem(t_sema *semaphores)
 	sem_unlink("/availability");
 }
 
+/*Similar to mutex, but has to unlink to have no issues later*/
 static int	sem_failure(t_sema *semaphores, int flag)
 {
 	if (flag >= 1)

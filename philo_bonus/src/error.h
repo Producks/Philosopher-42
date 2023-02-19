@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:09:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 04:49:31 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 19:54:39 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERROR_H
 
 # include <stdbool.h>
+# include <pthread.h>
 # include "semaphore.h"
 
 # define SUCCESS  0
@@ -21,7 +22,7 @@
 # define ARGV_ERROR 2
 # define ENOMEM 12
 
-int	pfail(pthread_t *threads, t_sema *dead_lock,
+int	pfail(pthread_t *threads, sem_t *dead_lock,
 		bool *dead_check, int index);
 
 #endif

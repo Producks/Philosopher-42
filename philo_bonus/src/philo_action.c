@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 03:23:29 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:44:37 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "utils.h"
 
 /*A philo is about to die, wait till the moment of death
-to announce it. Use 2 mutex to remove race conditions/data races.
+to announce it. Use 2 semaphores to remove race conditions/data races.
 Also set philo->dead to true so simulation end for everyone*/
 void	philo_wait_till_death(t_philo *philo)
 {
@@ -39,7 +39,7 @@ void	philo_wait_till_death(t_philo *philo)
 	sem_post(philo->dead_check);
 }
 
-/*Print the action/state of the philo, use a mutex to
+/*Print the action/state of the philo, use a semaphore to
 make sure only one print so there no overlap(data races)*/
 void	print_philo_state(t_philo *philo, int flag)
 {
@@ -61,7 +61,7 @@ void	print_philo_state(t_philo *philo, int flag)
 }
 
 /*Function that handle everything that has to do with eating.
-Uses multiples mutexes to avoid race condition. Also check
+Uses multiples semaphores to avoid race condition. Also check
 if the philo has enough time to eat*/
 void	philo_eat(t_philo *philo)
 {
@@ -89,7 +89,7 @@ void	philo_eat(t_philo *philo)
 }
 
 /*Handle the sleep part of the simulation, doesn't require a
-mutex outside of philo_state. Check if the philo has time to sleep*/
+semaphores outside of philo_state. Check if the philo has time to sleep*/
 void	philo_sleep(t_philo *philo)
 {
 	unsigned int	current;
@@ -105,7 +105,7 @@ void	philo_sleep(t_philo *philo)
 	usleep(1000 * philo->sim_params.time_to_sleep);
 }
 
-/*Handle the think part of the simulation, doesn't require a mutex
+/*Handle the think part of the simulation, doesn't require a semaphores
 outside of print_philo state. Will think until there 500ms left.
 Can be easily adjusted for another value depending on the computer*/
 void	philo_think(t_philo *philo)

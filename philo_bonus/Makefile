@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:36:12 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/17 17:23:58 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/19 03:14:18 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ SRC = 	./src/main.c \
 		./src/utils.c \
 		./src/simulation.c \
 		./src/philo_action.c \
-		./src/philo.c \
-		./src/log.c 
+		./src/philo.c
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m
@@ -45,6 +44,14 @@ WHITE = \033[0;37m
 
 $(NAME): $(OBJS)
 		${CC} ${CFGLAGS} ${OBJS} ${FLAGS} -o ${NAME}
+	@echo "🤔      🤔      🤔"
+	@echo "                    "
+	@echo "🤔      🍴🍝    🤔"
+	@echo "                    "
+	@echo "🤔      🤔      🤔"
+	@echo "$(PURPLE)Philosophers Bonus$(YELLOW)       _      _"
+	@echo "$(BLUE)By:Ddmers@42$(YELLOW)  __(.)< __(.)> __(.)="
+	@echo "$(RED)Version 1.03$(YELLOW)  \___)  \___)  \___) $(WHITE)"
 
 all: ${NAME}
 
