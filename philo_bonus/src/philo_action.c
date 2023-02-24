@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/24 08:25:48 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/24 12:09:07 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	philo_think(t_philo *philo)
 	print_philo_state(philo, 3);
 	think_time = philo->sim_params.time_to_die
 		- (time_stamp() - philo->time_last_meal)
-		- philo->sim_params.time_to_eat - 100;
+		- philo->sim_params.time_to_eat - 200;
 	if (think_time < 0)
 		return ;
 	usleep(think_time * 1000);
