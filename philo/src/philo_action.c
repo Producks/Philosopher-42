@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/24 05:12:30 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/24 11:19:34 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	philo_eat(t_philo *philo)
 	if (philo->sim_params.time_to_eat + (time_stamp()
 			- philo->time_last_meal) >= philo->sim_params.time_to_die)
 	{
-		printf("DIED EATING id:%d\n", philo->id);
 		philo_wait_till_death(philo);
 		pthread_mutex_unlock(philo->first_fork);
 		pthread_mutex_unlock(philo->second_fork);
@@ -94,8 +93,8 @@ void	philo_sleep(t_philo *philo)
 
 	print_philo_state(philo, 2);
 	current = time_stamp();
-	if ((time_stamp() - philo->time_last_meal) >=
-		(philo->sim_params.time_to_die - philo->sim_params.time_to_sleep)) 
+	if ((time_stamp() - philo->time_last_meal)
+		>= (philo->sim_params.time_to_die - philo->sim_params.time_to_sleep))
 	{
 		philo_wait_till_death(philo);
 		return ;
@@ -111,8 +110,9 @@ void	philo_think(t_philo *philo)
 	int	think_time;
 
 	print_philo_state(philo, 3);
-	think_time = philo->sim_params.time_to_die -
-		(time_stamp() - philo->time_last_meal) - philo->sim_params.time_to_eat - 250;
+	think_time = philo->sim_params.time_to_die
+		- (time_stamp() - philo->time_last_meal)
+		- philo->sim_params.time_to_eat - 100;
 	if (think_time < 0)
 		return ;
 	usleep(think_time * 1000);

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 17:44:37 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/24 08:25:48 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	philo_sleep(t_philo *philo)
 
 	print_philo_state(philo, 2);
 	current = time_stamp();
-	if (philo->sim_params.time_to_sleep - (current
-			- philo->time_last_meal) >= philo->sim_params.time_to_die)
+	if ((time_stamp() - philo->time_last_meal)
+		>= (philo->sim_params.time_to_die - philo->sim_params.time_to_sleep))
 	{
 		philo_wait_till_death(philo);
 		return ;
@@ -113,9 +113,10 @@ void	philo_think(t_philo *philo)
 	int	think_time;
 
 	print_philo_state(philo, 3);
-	think_time = (philo->sim_params.time_to_die - (time_stamp()
-				- philo->time_last_meal) - 500) * 1000;
+	think_time = philo->sim_params.time_to_die
+		- (time_stamp() - philo->time_last_meal)
+		- philo->sim_params.time_to_eat - 100;
 	if (think_time < 0)
 		return ;
-	usleep(think_time);
+	usleep(think_time * 1000);
 }
