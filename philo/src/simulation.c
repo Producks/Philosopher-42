@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/24 11:24:47 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/25 03:25:40 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	dinner(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 		usleep((philo->sim_params.time_to_eat * 1000 / 2));
+	if (philo->sim_params.time_to_die <= philo->sim_params.time_to_eat)
+		philo_wait_till_death(philo);
 	while (check_death(philo) != true)
 	{
 		philo_eat(philo);

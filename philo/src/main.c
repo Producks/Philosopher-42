@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:01:24 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 12:22:42 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/25 00:41:23 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	t_arguments	arguments;
 
 	if (argc < 5 || argc > 6)
-		return (ARGC_ERROR);
+		return (print_argc_error());
 	if (check_arguments(argc, argv) == -1)
 		return (ARGV_ERROR);
 	if (init_arguments(argc, argv, &arguments) == -1)

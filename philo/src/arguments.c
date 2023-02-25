@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 23:20:18 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:17:46 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/25 00:44:57 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,13 @@ static int	parsing_value(int value, int index)
 	}
 	else
 	{
-		if (value < 0)
-			return (print_error("Error: argument over MAX_INT"));
+		if (value <= 0)
+		{
+			if (value == 0)
+				return (print_error("Error: Timer can't be zero"));
+			else
+				return (print_error("Error: argument over MAX_INT"));
+		}
 		return (0);
 	}
 }

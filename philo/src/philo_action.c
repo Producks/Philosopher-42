@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/24 11:45:05 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/25 03:31:57 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include "arguments.h"
 #include "philo.h"
 #include "utils.h"
+
+void	custom_sleep(int duration)
+{
+	long start_time = time_stamp();
+	while ((time_stamp() - start_time) * 1000 < duration)
+	{
+		usleep(1000);
+	}
+}
 
 /*A philo is about to die, wait till the moment of death
 to announce it. Use 2 mutex to remove race conditions/data races.
@@ -69,8 +78,7 @@ void	philo_eat(t_philo *philo)
 	print_philo_state(philo, 0);
 	pthread_mutex_lock(philo->second_fork);
 	print_philo_state(philo, 0);
-	if (philo->sim_params.time_to_eat + (time_stamp()
-			- philo->time_last_meal) >= philo->sim_params.time_to_die)
+	if ((time_stamp() - philo->time_last_meal) >= philo->sim_params.time_to_die)
 	{
 		philo_wait_till_death(philo);
 		pthread_mutex_unlock(philo->first_fork);
@@ -78,10 +86,10 @@ void	philo_eat(t_philo *philo)
 		return ;
 	}
 	print_philo_state(philo, 1);
+	philo->time_last_meal = time_stamp();
 	usleep(philo->sim_params.time_to_eat * 1000);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
-	philo->time_last_meal = time_stamp();
 	philo->num_times_eaten++;
 }
 
@@ -112,7 +120,7 @@ void	philo_think(t_philo *philo)
 	print_philo_state(philo, 3);
 	think_time = philo->sim_params.time_to_die
 		- (time_stamp() - philo->time_last_meal)
-		- philo->sim_params.time_to_eat - 200;
+		- philo->sim_params.time_to_eat - 100;
 	if (think_time < 0)
 		return ;
 	usleep(think_time * 1000);

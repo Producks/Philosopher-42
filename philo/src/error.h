@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:09:16 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 19:54:56 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/25 00:41:10 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 
 int	pfail(pthread_t *threads, pthread_mutex_t *dead_lock,
 		bool *dead_check, int index);
+int	print_argc_error(void);
 
 #endif
