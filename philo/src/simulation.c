@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/25 03:25:40 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/26 01:18:39 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,19 @@ static void	*launch(void *ptr)
 	return (NULL);
 }
 
+static void	fuck_this_garbage_pdf_not_explaining_the_subject_corectly(t_philo *philo, t_mutex *mutex, unsigned int *start_simul, int nbr_philo)
+{
+	int	index;
+
+	index = 0;
+	*start_simul = time_stamp();
+	pthread_mutex_unlock(&mutex->launch);
+	while (true)
+	{
+		index = (index + 1) % nbr_philo;
+	}
+}
+
 /*Big boy function*/
 int	start_simulation(t_arguments *arguments, int index)
 {
@@ -105,8 +118,7 @@ int	start_simulation(t_arguments *arguments, int index)
 		if (pthread_create(&threads[index], NULL, launch, &philo[index]) != 0)
 			return (pfail(threads, &mutex.dead_lock, &dead_philo, (index - 1)));
 	}
-	start_simul = time_stamp();
-	pthread_mutex_unlock(&mutex.launch);
+	fuck_this_garbage_pdf_not_explaining_the_subject_corectly(philo, &mutex, &start_simul, arguments->nbr_philosophers);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
 	free_mutexes(&mutex, arguments->nbr_philosophers);
