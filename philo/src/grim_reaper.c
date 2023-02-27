@@ -6,18 +6,15 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 19:10:56 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 00:47:39 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:14:26 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "arguments.h"
-#include "philo.h"
-#include "mutex.h"
 #include "utils.h"
 
+/*Check if all philo ate*/
 static int	check_all_ate(t_philo *philo,
 	t_mutex *mutex, t_arguments *arguments)
 {
@@ -40,6 +37,7 @@ static int	check_all_ate(t_philo *philo,
 	return (true);
 }
 
+/*GG noob*/
 static void	death_is_upon_us(t_philo *philo, t_mutex *mutex, int index)
 {
 	printf(RED "%d %d died 💀\n", time_stamp(), philo[index].id);
@@ -49,6 +47,7 @@ static void	death_is_upon_us(t_philo *philo, t_mutex *mutex, int index)
 	pthread_mutex_unlock(&mutex->write_lock);
 }
 
+/*The grim reaper looks if anyone is dead*/
 void	grim_reaper(t_philo *philo, t_mutex *mutex,
 	unsigned int *start_simul, t_arguments *arguments)
 {
@@ -75,6 +74,28 @@ void	grim_reaper(t_philo *philo, t_mutex *mutex,
 		usleep(100);
 	}
 }
+
+/*              ...                            
+             ;::::;                           
+           ;::::; :;                          
+         ;:::::'   :;                         
+        ;:::::;     ;.                        
+       ,:::::'       ;           OOO\         
+       ::::::;       ;          OOOOO\        
+       ;:::::;       ;         OOOOOOOO       
+      ,;::::::;     ;'         / OOOOOOO      
+    ;:::::::::`. ,,,;.        /  / DOOOOOO    
+  .';:::::::::::::::::;,     /  /     DOOOO   
+ ,::::::;::::::;;;;::::;,   /  /        DOOO  
+;`::::::`'::::::;;;::::: ,#/  /          DOOO 
+:`:::::::`;::::::;;::: ;::#  /            DOOO
+::`:::::::`;:::::::: ;::::# /              DOO
+`:`:::::::`;:::::: ;::::::#/               DOO
+ :::`:::::::`;; ;:::::::::##                OO
+ ::::`:::::::`;::::::::;:::#                OO
+ `:::::`::::::::::::;'`:;::#                O 
+  `:::::`::::::::;' /  / `:#                  
+   ::::::`:::::;'  /  /   `#              */
 
 // void	grim_reaper(t_philo *philo, t_mutex *mutex,
 //		unsigned int *start_simul, t_arguments *arguments)

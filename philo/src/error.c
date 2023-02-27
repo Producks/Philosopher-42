@@ -6,15 +6,11 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:08:54 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/26 19:16:03 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:13:17 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include "arguments.h"
-#include "mutex.h"
 #include "utils.h"
 #include "error.h"
 

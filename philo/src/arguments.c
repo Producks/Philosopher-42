@@ -6,11 +6,10 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 23:20:18 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/25 00:44:57 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:12:23 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arguments.h"
 #include "utils.h"
 
 /*Check if the arguments are digits only and positive*/

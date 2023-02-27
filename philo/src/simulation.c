@@ -6,18 +6,14 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 00:24:38 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:17:28 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include "arguments.h"
 #include "utils.h"
 #include "philo_action.h"
-#include "philo.h"
-#include "mutex.h"
 #include "error.h"
 #include "grim_reaper.h"
 

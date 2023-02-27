@@ -6,14 +6,12 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 00:47:07 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:15:47 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include "arguments.h"
-#include "philo.h"
 #include "utils.h"
 
 /*Check if a philo died, use a mutex to avoid race condition*/

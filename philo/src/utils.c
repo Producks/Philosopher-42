@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 00:20:45 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:18:26 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <limits.h>
-#include "philo.h"
-#include "mutex.h"
 #include "utils.h"
 
 /*CHECK LATER IF IT'S BETTER*/

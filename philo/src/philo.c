@@ -6,13 +6,11 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:03:57 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 00:34:14 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 01:16:22 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "arguments.h"
-#include "mutex.h"
 
 void	init_philo(t_arguments *arguments, t_philo *philo,
 	t_mutex *mutex, bool *dead_philo)
