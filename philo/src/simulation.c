@@ -6,18 +6,20 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/26 01:18:39 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 00:24:38 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "arguments.h"
 #include "utils.h"
 #include "philo_action.h"
 #include "philo.h"
 #include "mutex.h"
 #include "error.h"
+#include "grim_reaper.h"
 
 /*The simulation function loops until the philosophers have eaten enough
 times or one dies. To ensure that even-numbered philosophers eat later
@@ -28,9 +30,7 @@ static void	dinner(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 		usleep((philo->sim_params.time_to_eat * 1000 / 2));
-	if (philo->sim_params.time_to_die <= philo->sim_params.time_to_eat)
-		philo_wait_till_death(philo);
-	while (check_death(philo) != true)
+	while (philo_check_death(philo) != true)
 	{
 		philo_eat(philo);
 		if (philo->num_times_eaten == philo->sim_params.nbr_times_eat)
@@ -78,25 +78,14 @@ static void	*launch(void *ptr)
 	philo = (t_philo *)ptr;
 	pthread_mutex_lock(philo->launch);
 	pthread_mutex_unlock(philo->launch);
+	pthread_mutex_lock(philo->meal_lock);
 	philo->time_last_meal = *philo->start_simul;
+	pthread_mutex_unlock(philo->meal_lock);
 	dinner(philo);
 	return (NULL);
 }
 
-static void	fuck_this_garbage_pdf_not_explaining_the_subject_corectly(t_philo *philo, t_mutex *mutex, unsigned int *start_simul, int nbr_philo)
-{
-	int	index;
-
-	index = 0;
-	*start_simul = time_stamp();
-	pthread_mutex_unlock(&mutex->launch);
-	while (true)
-	{
-		index = (index + 1) % nbr_philo;
-	}
-}
-
-/*Big boy function*/
+/*This function was readable before I had to deal with the norminette*/
 int	start_simulation(t_arguments *arguments, int index)
 {
 	unsigned int		start_simul;
@@ -118,7 +107,7 @@ int	start_simulation(t_arguments *arguments, int index)
 		if (pthread_create(&threads[index], NULL, launch, &philo[index]) != 0)
 			return (pfail(threads, &mutex.dead_lock, &dead_philo, (index - 1)));
 	}
-	fuck_this_garbage_pdf_not_explaining_the_subject_corectly(philo, &mutex, &start_simul, arguments->nbr_philosophers);
+	grim_reaper(philo, &mutex, &start_simul, arguments);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
 	free_mutexes(&mutex, arguments->nbr_philosophers);

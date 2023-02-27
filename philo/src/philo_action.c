@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:11:03 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/26 00:30:49 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 00:47:07 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,20 @@
 #include "philo.h"
 #include "utils.h"
 
-void	custom_sleep(int duration)
+/*Check if a philo died, use a mutex to avoid race condition*/
+bool	philo_check_death(t_philo *philo)
 {
-	long start_time = time_stamp();
-	while ((time_stamp() - start_time) * 1000 < duration)
-	{
-		usleep(1000);
-	}
-}
-
-/*A philo is about to die, wait till the moment of death
-to announce it. Use 2 mutex to remove race conditions/data races.
-Also set philo->dead to true so simulation end for everyone*/
-void	philo_wait_till_death(t_philo *philo)
-{
-	int	sleep_time;
-
-	pthread_mutex_lock(philo->write_lock);
 	pthread_mutex_lock(philo->dead_lock);
-	sleep_time = ((philo->sim_params.time_to_die
-				- (time_stamp() - philo->time_last_meal)) * 1000);
-	if (sleep_time < 0)
-		sleep_time = 0;
-	usleep(sleep_time);
-	if (*philo->dead == false)
+	if (*philo->dead == true)
 	{
-		*philo->dead = true;
-		printf(RED "%d %d died 💀\n", time_stamp(), philo->id);
+		pthread_mutex_unlock(philo->dead_lock);
+		return (true);
 	}
-	pthread_mutex_unlock(philo->write_lock);
-	pthread_mutex_unlock(philo->dead_lock);
+	else
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (false);
+	}
 }
 
 /*Print the action/state of the philo, use a mutex to
@@ -53,7 +37,7 @@ make sure only one print so there no overlap(data races)*/
 void	print_philo_state(t_philo *philo, int flag)
 {
 	pthread_mutex_lock(philo->write_lock);
-	if (check_death(philo) == true)
+	if (philo_check_death(philo) == true)
 	{
 		pthread_mutex_unlock(philo->write_lock);
 		return ;
@@ -78,35 +62,21 @@ void	philo_eat(t_philo *philo)
 	print_philo_state(philo, 0);
 	pthread_mutex_lock(philo->second_fork);
 	print_philo_state(philo, 0);
-	if ((time_stamp() - philo->time_last_meal) >= philo->sim_params.time_to_die)
-	{
-		philo_wait_till_death(philo);
-		pthread_mutex_unlock(philo->first_fork);
-		pthread_mutex_unlock(philo->second_fork);
-		return ;
-	}
 	print_philo_state(philo, 1);
+	pthread_mutex_lock(philo->meal_lock);
 	philo->time_last_meal = time_stamp();
+	philo->num_times_eaten++;
+	pthread_mutex_unlock(philo->meal_lock);
 	usleep(philo->sim_params.time_to_eat * 1000);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
-	philo->num_times_eaten++;
 }
 
 /*Handle the sleep part of the simulation, doesn't require a
 mutex outside of philo_state. Check if the philo has time to sleep*/
 void	philo_sleep(t_philo *philo)
 {
-	unsigned int	current;
-
 	print_philo_state(philo, 2);
-	current = time_stamp();
-	if ((time_stamp() - philo->time_last_meal)
-		>= (philo->sim_params.time_to_die - philo->sim_params.time_to_sleep))
-	{
-		philo_wait_till_death(philo);
-		return ;
-	}
 	usleep(1000 * philo->sim_params.time_to_sleep);
 }
 
@@ -120,8 +90,8 @@ void	philo_think(t_philo *philo)
 	print_philo_state(philo, 3);
 	think_time = philo->sim_params.time_to_die
 		- (time_stamp() - philo->time_last_meal)
-		- philo->sim_params.time_to_eat - 100;
+		- 100;
 	if (think_time < 0)
-		return ;
+		think_time = 5;
 	usleep(think_time * 1000);
 }

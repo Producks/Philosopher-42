@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:36 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 19:18:04 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/26 19:03:39 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 unsigned int	time_stamp(void);
 int				ft_atoi(const char *str);
 int				print_error(const char *str);
-bool			check_death(t_philo *philo);
+void			custom_sleep(int duration);
 int				generate_log(bool dead_philo, unsigned int start_simul,
 					t_arguments arguments);
 

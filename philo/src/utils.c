@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/19 15:35:58 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 00:20:45 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,15 @@
 #include "mutex.h"
 #include "utils.h"
 
-/*Check if a philo died, use a mutex to avoid race condition*/
-bool	check_death(t_philo *philo)
+/*CHECK LATER IF IT'S BETTER*/
+void	custom_sleep(int duration)
 {
-	pthread_mutex_lock(philo->dead_lock);
-	if (*philo->dead == true)
+	long	start_time;
+
+	start_time = time_stamp();
+	while ((time_stamp() - start_time) * 1000 < duration)
 	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (true);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (false);
+		usleep(1000);
 	}
 }
 

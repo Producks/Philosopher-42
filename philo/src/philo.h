@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 04:09:28 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/26 15:03:26 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo
 	unsigned int		*start_simul;
 	pthread_mutex_t		*first_fork;
 	pthread_mutex_t		*second_fork;
+	pthread_mutex_t		*meal_lock;
 	pthread_mutex_t		*write_lock;
 	pthread_mutex_t		*launch;
 	bool				*dead;

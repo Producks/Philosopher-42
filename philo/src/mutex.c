@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:53:00 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/17 12:28:02 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/26 19:02:30 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_mutexes(t_mutex *mutex, int nbr_philosopher)
 	while (index < nbr_philosopher)
 	{
 		pthread_mutex_destroy(&mutex->fork[index]);
+		pthread_mutex_destroy(&mutex->meal_lock[index]);
 		index++;
 	}
 	pthread_mutex_destroy(&mutex->write_lock);
@@ -51,6 +52,8 @@ int	init_mutex(t_mutex *mutex, int nbr_philosopher)
 	while (index < nbr_philosopher)
 	{
 		if (pthread_mutex_init(&mutex->fork[index], NULL) != 0)
+			return (mutex_init_failure(mutex->fork, (index - 1)));
+		if (pthread_mutex_init(&mutex->meal_lock[index], NULL) != 0)
 			return (mutex_init_failure(mutex->fork, (index - 1)));
 		index++;
 	}
