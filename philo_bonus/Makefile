@@ -6,7 +6,7 @@
 #    By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:36:12 by ddemers           #+#    #+#              #
-#    Updated: 2023/02/19 15:22:11 by ddemers          ###   ########.fr        #
+#    Updated: 2023/02/27 04:41:53 by ddemers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC = 	./src/main.c \
 		./src/utils.c \
 		./src/simulation.c \
 		./src/philo_action.c \
-		./src/philo.c
+		./src/philo.c \
+		./src/grim_reaper.c 
 # Colors #
 BLACK = \033[0;30m
 RED = \033[0;31m

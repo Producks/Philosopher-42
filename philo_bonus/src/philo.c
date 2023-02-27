@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:03:57 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 03:00:08 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 04:53:32 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	init_philo(t_arguments *arguments, t_philo *philo,
 		philo[index].launch = semaphores->launch;
 		philo[index].dead = dead_philo;
 		philo[index].num_times_eaten = 0;
+		philo[index].time_last_meal = 0;
+		philo[index].meal = semaphores->meal[index];
 		philo[index].sim_params = arguments->sim_params;
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/27 02:38:31 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 04:41:37 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "philo_action.h"
 #include "philo.h"
 #include "error.h"
+#include "grim_reaper.h"
 
 /*The simulation function loops until the philosophers have eaten enough
 times or one dies. To ensure that even-numbered philosophers eat later
@@ -74,7 +75,9 @@ static void	*launch(void *ptr)
 	philo = (t_philo *)ptr;
 	sem_wait(philo->launch);
 	sem_post(philo->launch);
+	sem_wait(philo->meal);
 	philo->time_last_meal = *philo->start_simul;
+	sem_post(philo->meal);
 	dinner(philo);
 	return (NULL);
 }
@@ -101,8 +104,7 @@ int	start_simulation(t_arguments *arguments, int index)
 		if (pthread_create(&threads[index], NULL, launch, &philo[index]) != 0)
 			return (pfail(threads, NULL, &dead_philo, (index - 1)));
 	}
-	start_simul = time_stamp();
-	sem_post(semaphores.launch);
+	grim_reaper(philo, &semaphores, &start_simul, arguments);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
 	destroy_sem(&semaphores, arguments->nbr_philosophers);

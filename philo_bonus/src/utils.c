@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:35:29 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/19 15:34:08 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 04:36:20 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@
 #include <stdio.h>
 #include "philo.h"
 #include "utils.h"
-
-/*Check if a philo died, use a semaphores to avoid race condition*/
-bool	check_death(t_philo *philo)
-{
-	sem_wait(philo->dead_check);
-	if (*philo->dead == true)
-	{
-		sem_post(philo->dead_check);
-		return (true);
-	}
-	else
-	{
-		sem_post(philo->dead_check);
-		return (false);
-	}
-}
 
 /*Function to get the time, has a static struct which
 will be our start simulation time the first time we call it*/

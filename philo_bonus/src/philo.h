@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 22:58:26 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 04:49:14 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 04:27:42 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	sem_t				*forks;
 	sem_t				*availability;
 	sem_t				*launch;
+	sem_t				*meal;
 	bool				*dead;
 	t_sim_params		sim_params;
 }	t_philo;
