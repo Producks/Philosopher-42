@@ -6,7 +6,7 @@
 /*   By: ddemers <ddemers@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:37:27 by ddemers           #+#    #+#             */
-/*   Updated: 2023/02/18 19:17:02 by ddemers          ###   ########.fr       */
+/*   Updated: 2023/02/27 02:38:31 by ddemers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ static void	*one(void *ptr)
 }
 
 /*Handle if there only 1 philo*/
-static int	handle_one(t_philo *philo, pthread_t *threads, t_sema *semaphores)
+static int	handle_one(t_philo *philo, pthread_t *threads, t_sema *semaphores, int nbr_of_philo)
 {
 	if (pthread_create(&threads[0], NULL, one, &philo[0]) != 0)
 	{
-		destroy_sem(semaphores);
+		destroy_sem(semaphores, nbr_of_philo);
 		return (print_error("Error: Enomem create failure"));
 	}
 	pthread_join(threads[0], NULL);
-	destroy_sem(semaphores);
+	destroy_sem(semaphores, nbr_of_philo);
 	return (0);
 }
 
@@ -93,7 +93,7 @@ int	start_simulation(t_arguments *arguments, int index)
 		return (-1);
 	init_philo(arguments, philo, &semaphores, &dead_philo);
 	if (arguments->nbr_philosophers == 1)
-		return (handle_one(philo, threads, &semaphores));
+		return (handle_one(philo, threads, &semaphores, arguments->nbr_philosophers));
 	sem_wait(semaphores.launch);
 	while (++index < arguments->nbr_philosophers)
 	{
@@ -105,6 +105,6 @@ int	start_simulation(t_arguments *arguments, int index)
 	sem_post(semaphores.launch);
 	while (--index >= 0)
 		pthread_join(threads[index], NULL);
-	destroy_sem(&semaphores);
+	destroy_sem(&semaphores, arguments->nbr_philosophers);
 	return (generate_log(dead_philo, start_simul, *arguments));
 }
