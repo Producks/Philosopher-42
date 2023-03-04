@@ -16,4 +16,5 @@ The mandatory part forces you to only use mutexes and no semaphores. My solution
 
 When I give the forks away to the threads, I follow the fork priority image. Odd-numbered philosophers always grab the first fork to their left, and even-numbered philosophers always grab their right fork. This makes it so there is no way to deadlock. I also have a timer at the beginning of the simulation launch where even-numbered philosophers wait for time_to_eat / 2 before they start eating. This makes it synchronize better.
 # Bonus Part
+BONUS IS NOT CORRECT, IT"S MEANT TO BE USED WITH FORKS NOT PTHREAD. threads aren't process 
 The bonus part cannot use mutexes, but we get access to semaphores! The forks are also all in the middle, represented by a semaphore. Since we can't do it like in the image, I created an extra semaphore called "availability" which contains the number of philosophers / 2. This avoids any potential deadlock.
